@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "home": "Home",
+    "servizi": "Services",
+    "portfolio": "Portfolio",
+    "chi_sono": "About",
+    "blog": "Blog",
+    "contatti": "Contact"
+  },
+  "hero": {
+    "badge": "Web developer · Varese area, Italy"
+  },
+  "contatti": {
+    "titolo": "Get in touch",
+    "sottotitolo": "Tell me about your project, I'll reply within 24 hours.",
+    "nome": "Name",
+    "email": "Email",
+    "messaggio": "Message",
+    "invia": "Send message",
+    "invio_ok": "Message sent! I'll get back to you soon.",
+    "invio_errore": "Error sending. Please try again."
+  },
+  "footer": {
+    "copy": "© 2025 GST Code Lab. All rights reserved.",
+    "piva": "VAT 00000000000"
+  }
+}

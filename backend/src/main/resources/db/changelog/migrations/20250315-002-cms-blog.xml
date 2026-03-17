@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="20250315-002" author="gioele">
+
+        <createTable tableName="cms_sections">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="section_key" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_json" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort_order" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locale" type="VARCHAR(5)" defaultValue="it">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint
+                tableName="cms_sections"
+                columnNames="section_key, locale"
+                constraintName="uq_cms_section_key_locale"/>
+
+        <createTable tableName="blog_posts">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="body" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(100)"/>
+            <column name="seo_title" type="VARCHAR(255)"/>
+            <column name="seo_description" type="VARCHAR(500)"/>
+            <column name="seo_og_image" type="VARCHAR(500)"/>
+            <column name="status" type="VARCHAR(20)" defaultValue="DRAFT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locale" type="VARCHAR(5)" defaultValue="it">
+                <constraints nullable="false"/>
+            </column>
+            <column name="published_at" type="DATETIME"/>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="blog_posts"/>
+            <dropTable tableName="cms_sections"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>

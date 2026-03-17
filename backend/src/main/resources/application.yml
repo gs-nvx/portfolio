@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: portfolio
+
+  jpa:
+    hibernate:
+      ddl-auto: validate        # Liquibase gestisce lo schema, Hibernate non tocca nulla
+    open-in-view: false
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+  mail:
+    default-encoding: UTF-8
+
+server:
+  port: 8080
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration-ms: 86400000     # 24 ore

@@ -1,0 +1,29 @@
+# Environment
+.env
+
+# Backend
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/*.iml
+backend/.idea/
+*.class
+*.jar
+*.war
+
+# Frontend
+frontend-public/node_modules/
+frontend-public/dist/
+frontend-admin/node_modules/
+frontend-admin/dist/
+
+# IDE
+.idea/
+.vscode/settings.json
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

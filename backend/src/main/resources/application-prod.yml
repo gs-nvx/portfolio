@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=true&serverTimezone=Europe/Rome
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+logging:
+  level:
+    root: WARN
+    com.tuonome.portfolio: INFO
+
+app:
+  mail:
+    from: noreply@gstcodelab.it
+    to: tua@email.it
+  uploads:
+    path: ${UPLOADS_PATH:/uploads}
+    base-url: https://tuodominio.it/uploads

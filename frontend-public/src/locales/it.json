@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "home": "Home",
+    "servizi": "Servizi",
+    "portfolio": "Portfolio",
+    "chi_sono": "Chi sono",
+    "blog": "Blog",
+    "contatti": "Contatti"
+  },
+  "hero": {
+    "badge": "Sviluppatore web · Provincia di Varese"
+  },
+  "contatti": {
+    "titolo": "Contattami",
+    "sottotitolo": "Raccontami il tuo progetto, ti rispondo entro 24 ore.",
+    "nome": "Nome",
+    "email": "Email",
+    "messaggio": "Messaggio",
+    "invia": "Invia messaggio",
+    "invio_ok": "Messaggio inviato! Ti risponderò presto.",
+    "invio_errore": "Errore nell'invio. Riprova tra poco."
+  },
+  "footer": {
+    "copy": "© 2025 GST Code Lab. Tutti i diritti riservati.",
+    "piva": "P.IVA 00000000000"
+  }
+}

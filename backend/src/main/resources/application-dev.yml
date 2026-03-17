@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:portfolio_db}?useSSL=false&serverTimezone=Europe/Rome&allowPublicKeyRetrieval=true
+    username: ${DB_USER:gioele}
+    password: ${DB_PASSWORD:gioele}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ""
+    password: ""
+    properties:
+      mail.smtp.auth: false
+      mail.smtp.starttls.enable: false
+
+logging:
+  level:
+    com.tuonome.portfolio: DEBUG
+    org.springframework.security: DEBUG
+
+app:
+  mail:
+    from: noreply@gstcodelab.local
+    to: gioele@gstcodelab.local
+  uploads:
+    path: ${UPLOADS_PATH:C:/uploads}
+    base-url: http://localhost:8080/uploads
