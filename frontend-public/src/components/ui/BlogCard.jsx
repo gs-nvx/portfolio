@@ -6,11 +6,11 @@ export default function BlogCard({ post }) {
       to={`/blog/${post.slug}`}
       className="rounded-xl p-5 flex flex-col gap-3 group transition"
       style={{
-        background: "#0a0f0d",
-        border: "0.5px solid #1a2e24",
+        background: "#ffffff",
+        border: "0.5px solid #dceae5",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#2dd4a0")}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#1a2e24")}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#0b7a5a")}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#dceae5")}
     >
       {post.seoOgImage && (
         <img
@@ -21,25 +21,28 @@ export default function BlogCard({ post }) {
       )}
       {post.category && (
         <span
-          className="text-xs text-teal-400 bg-teal-900/40
-          px-2 py-1 rounded-full w-fit"
+          className="text-xs px-2 py-1 rounded-full w-fit"
+          style={{ color: "#0b7a5a", background: "#e8f5f0" }}
         >
           {post.category}
         </span>
       )}
       <h3
-        className="text-white font-medium text-base leading-snug
-        group-hover:text-teal-400 transition"
+        className="font-medium text-base leading-snug group-hover:text-[#0b7a5a] transition"
+        style={{ color: "#152820" }}
       >
         {post.title}
       </h3>
       {post.seoDescription && (
-        <p className="text-gray-500 text-sm line-clamp-2 leading-relaxed">
+        <p
+          className="text-sm line-clamp-2 leading-relaxed"
+          style={{ color: "#5a8a7a" }}
+        >
           {post.seoDescription}
         </p>
       )}
       {post.publishedAt && (
-        <span className="text-gray-600 text-xs mt-auto">
+        <span className="text-xs mt-auto" style={{ color: "#8ab8a8" }}>
           {new Date(post.publishedAt).toLocaleDateString("it-IT", {
             day: "numeric",
             month: "long",

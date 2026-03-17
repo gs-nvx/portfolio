@@ -16,13 +16,13 @@ export default function PortfolioPage() {
       <Helmet>
         <title>Portfolio — GST Code Lab</title>
       </Helmet>
-      <div style={{ background: "#0a0f0d" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#0e1520" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="text-center mb-12">
-            <SectionEyebrow label="Portfolio" />
+            <SectionEyebrow label="Portfolio" dark />
             <h1
               className="text-4xl font-medium"
-              style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+              style={{ color: "#e8f0ee", letterSpacing: "-0.02em" }}
             >
               {portfolio?.titolo_sezione || "Casi studio"}
             </h1>
@@ -32,7 +32,7 @@ export default function PortfolioPage() {
               <div
                 key={i}
                 className="rounded-xl overflow-hidden group"
-                style={{ background: "#0d1510", border: "0.5px solid #1a2e24" }}
+                style={{ background: "#162030", border: "0.5px solid #1a2e3a" }}
               >
                 {c.immagine ? (
                   <img
@@ -52,7 +52,7 @@ export default function PortfolioPage() {
                       style={{
                         fontFamily: "'DM Mono', monospace",
                         fontSize: "10px",
-                        color: "#2dd4a0",
+                        color: "#34d5a8",
                         opacity: 0.4,
                       }}
                     >
@@ -63,19 +63,19 @@ export default function PortfolioPage() {
                 <div className="p-5">
                   <span
                     className="text-[10px] px-2 py-1 rounded-full"
-                    style={{ background: "#0f2a1e", color: "#2dd4a0" }}
+                    style={{ background: "#0d2a28", color: "#34d5a8" }}
                   >
                     {c.tag}
                   </span>
                   <h2
                     className="font-medium mt-3 mb-2"
-                    style={{ color: "#e2ede8" }}
+                    style={{ color: "#e8f0ee" }}
                   >
                     {c.titolo}
                   </h2>
                   <p
                     className="text-sm leading-relaxed"
-                    style={{ color: "#4d7060" }}
+                    style={{ color: "#6e9aaa" }}
                   >
                     {c.descrizione}
                   </p>
@@ -87,7 +87,7 @@ export default function PortfolioPage() {
                       className="inline-block mt-3 text-sm transition
                         hover:opacity-70"
                       style={{
-                        color: "#2dd4a0",
+                        color: "#34d5a8",
                         fontFamily: "'DM Mono', monospace",
                         fontSize: "11px",
                       }}
@@ -102,7 +102,7 @@ export default function PortfolioPage() {
           {(!portfolio?.casi_studio || portfolio.casi_studio.length === 0) && (
             <p
               className="text-center py-16 text-sm"
-              style={{ color: "#4d7060" }}
+              style={{ color: "#6e9aaa" }}
             >
               Portfolio in costruzione — presto i primi casi studio.
             </p>

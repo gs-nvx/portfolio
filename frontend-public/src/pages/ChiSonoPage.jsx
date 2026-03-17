@@ -16,13 +16,13 @@ export default function ChiSonoPage() {
       <Helmet>
         <title>Chi sono — GST Code Lab</title>
       </Helmet>
-      <div style={{ background: "#0a0f0d" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#0e1520" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="max-w-2xl mx-auto">
-            <SectionEyebrow label="Chi sono" />
+            <SectionEyebrow label="Chi sono" dark />
             <h1
               className="text-4xl font-medium mb-6"
-              style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+              style={{ color: "#e8f0ee", letterSpacing: "-0.02em" }}
             >
               {chiSono?.titolo || "Chi sono"}
             </h1>
@@ -44,11 +44,11 @@ export default function ChiSonoPage() {
               <div className="flex items-baseline gap-2 mb-6">
                 <span
                   className="text-3xl font-semibold"
-                  style={{ color: "#2dd4a0", letterSpacing: "-0.02em" }}
+                  style={{ color: "#34d5a8", letterSpacing: "-0.02em" }}
                 >
                   {chiSono.anni_esperienza}+
                 </span>
-                <span className="text-sm" style={{ color: "#4d7060" }}>
+                <span className="text-sm" style={{ color: "#6e9aaa" }}>
                   anni di esperienza
                 </span>
               </div>
@@ -58,7 +58,7 @@ export default function ChiSonoPage() {
                 <p
                   className="text-xs mb-3 uppercase tracking-widest"
                   style={{
-                    color: "#4d7060",
+                    color: "#6e9aaa",
                     fontFamily: "'DM Mono', monospace",
                   }}
                 >
@@ -70,8 +70,8 @@ export default function ChiSonoPage() {
                       key={i}
                       className="text-sm px-3 py-1 rounded-lg"
                       style={{
-                        background: "#0d1510",
-                        border: "0.5px solid #1a2e24",
+                        background: "#162030",
+                        border: "0.5px solid #1a2e3a",
                         color: "#6b8f7d",
                       }}
                     >

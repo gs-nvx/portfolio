@@ -12,7 +12,7 @@ export default function ServiceCategory({
     <div>
       <p
         className="text-xs uppercase tracking-widest mb-3"
-        style={{ color: "#4d7060", fontFamily: "'DM Mono', monospace" }}
+        style={{ color: "#8ab8a8", fontFamily: "'DM Mono', monospace" }}
       >
         {category}
       </p>

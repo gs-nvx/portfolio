@@ -21,8 +21,8 @@ export default function Navbar() {
     <nav
       className="fixed top-0 left-0 right-0 z-50 backdrop-blur"
       style={{
-        background: "rgba(10,15,13,0.92)",
-        borderBottom: "0.5px solid #1a2e24",
+        background: "rgba(14,21,32,0.92)",
+        borderBottom: "0.5px solid #1a2e3a",
       }}
     >
       <div
@@ -34,7 +34,7 @@ export default function Navbar() {
             className="text-sm text-white tracking-wide"
             style={{ fontFamily: "'DM Mono', monospace" }}
           >
-            GST <span style={{ color: "#2dd4a0" }}>Code Lab</span>
+            GST <span style={{ color: "#34d5a8" }}>Code Lab</span>
           </span>
         </Link>
 
@@ -47,7 +47,7 @@ export default function Navbar() {
               end={item.to === "/"}
               style={({ isActive }) => ({
                 fontSize: "13px",
-                color: isActive ? "#2dd4a0" : "#6b8f7d",
+                color: isActive ? "#34d5a8" : "#6b8f7d",
                 textDecoration: "none",
                 transition: "color 0.2s",
               })}
@@ -60,8 +60,8 @@ export default function Navbar() {
             className="transition"
             style={{
               fontSize: "11px",
-              color: "#4d7060",
-              border: "0.5px solid #1a2e24",
+              color: "#6e9aaa",
+              border: "0.5px solid #1a2e3a",
               padding: "4px 10px",
               borderRadius: "6px",
               background: "transparent",
@@ -79,8 +79,8 @@ export default function Navbar() {
               fontWeight: 500,
               padding: "8px 18px",
               borderRadius: "8px",
-              background: "#2dd4a0",
-              color: "#062318",
+              background: "#34d5a8",
+              color: "#04281e",
               textDecoration: "none",
             }}
           >
@@ -103,8 +103,8 @@ export default function Navbar() {
         <div
           className="md:hidden px-6 py-4 flex flex-col gap-3"
           style={{
-            background: "#0a0f0d",
-            borderTop: "0.5px solid #1a2e24",
+            background: "#0e1520",
+            borderTop: "0.5px solid #1a2e3a",
           }}
         >
           {navItems.map((item) => (
@@ -115,7 +115,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
               style={({ isActive }) => ({
                 fontSize: "13px",
-                color: isActive ? "#2dd4a0" : "#6b8f7d",
+                color: isActive ? "#34d5a8" : "#6b8f7d",
                 textDecoration: "none",
                 padding: "4px 0",
               })}
@@ -132,8 +132,8 @@ export default function Navbar() {
               fontWeight: 500,
               padding: "10px",
               borderRadius: "8px",
-              background: "#2dd4a0",
-              color: "#062318",
+              background: "#34d5a8",
+              color: "#04281e",
               textDecoration: "none",
             }}
           >

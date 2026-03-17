@@ -29,11 +29,11 @@ export default function HomePage() {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
-        style={{ background: "#0a0f0d" }}
+        style={{ background: "#0e1520" }}
       >
         <span
           style={{ fontFamily: "'DM Mono', monospace" }}
-          className="text-[#4d7060] text-xs tracking-widest"
+          className="text-[#6e9aaa] text-xs tracking-widest"
         >
           Caricamento...
         </span>
@@ -54,7 +54,7 @@ export default function HomePage() {
       <section
         className="min-h-screen flex items-center justify-center pt-14 relative"
         style={{
-          background: "#0a0f0d",
+          background: "#0e1520",
           backgroundImage: `
             linear-gradient(rgba(45,212,160,0.04) 1px, transparent 1px),
             linear-gradient(90deg, rgba(45,212,160,0.04) 1px, transparent 1px)
@@ -65,14 +65,14 @@ export default function HomePage() {
         {/* fade bottom */}
         <div
           className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
-          style={{ background: "linear-gradient(transparent, #0a0f0d)" }}
+          style={{ background: "linear-gradient(transparent, #0e1520)" }}
         />
 
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <div
             className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full"
             style={{
-              background: "#0f1f18",
+              background: "#0d2a28",
               border: "0.5px solid #1d4a35",
               fontFamily: "'DM Mono', monospace",
             }}
@@ -93,11 +93,11 @@ export default function HomePage() {
               fontFamily: "'Outfit', sans-serif",
               fontWeight: 600,
               letterSpacing: "-0.02em",
-              color: "#e2ede8",
+              color: "#e8f0ee",
             }}
           >
             {hero?.titolo_parte1 || "Siti e gestionali"}{" "}
-            <span style={{ color: "#2dd4a0", fontWeight: 300 }}>
+            <span style={{ color: "#34d5a8", fontWeight: 300 }}>
               {hero?.titolo_em || "su misura"}
             </span>
             <br />
@@ -117,8 +117,8 @@ export default function HomePage() {
               to={hero?.link_cta || "/servizi"}
               className="font-medium px-8 py-3 rounded-lg transition"
               style={{
-                background: "#2dd4a0",
-                color: "#062318",
+                background: "#34d5a8",
+                color: "#04281e",
                 fontSize: "14px",
               }}
             >
@@ -130,7 +130,7 @@ export default function HomePage() {
               style={{
                 background: "transparent",
                 color: "#6b8f7d",
-                border: "0.5px solid #1a2e24",
+                border: "0.5px solid #1a2e3a",
                 fontSize: "14px",
               }}
             >
@@ -140,13 +140,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SERVIZI ── sfondo alt */}
+      {/* ── SERVIZI ── sfondo chiaro */}
       {servizi?.pacchetti?.length > 0 && (
         <section
           style={{
-            background: "#0d1510",
-            borderTop: "0.5px solid #1a2e24",
-            borderBottom: "0.5px solid #1a2e24",
+            background: "#f4f8f7",
+            borderTop: "0.5px solid #dceae5",
+            borderBottom: "0.5px solid #dceae5",
           }}
         >
           <SectionWrapper>
@@ -154,13 +154,13 @@ export default function HomePage() {
               <SectionEyebrow label="Servizi" />
               <h2
                 className="text-3xl font-medium tracking-tight"
-                style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+                style={{ color: "#152820", letterSpacing: "-0.02em" }}
               >
                 {servizi.titolo_sezione}
               </h2>
               <p
                 className="mt-2 text-sm font-light"
-                style={{ color: "#4d7060" }}
+                style={{ color: "#8ab8a8" }}
               >
                 {servizi.sottotitolo_sezione}
               </p>
@@ -171,18 +171,18 @@ export default function HomePage() {
                   key={i}
                   className="rounded-xl p-6 flex flex-col gap-3"
                   style={{
-                    background: "#0a0f0d",
+                    background: "#ffffff",
                     border: p.evidenziato
-                      ? "1px solid #2dd4a0"
-                      : "0.5px solid #1a2e24",
+                      ? "1px solid #0b7a5a"
+                      : "0.5px solid #dceae5",
                   }}
                 >
                   {p.evidenziato && (
                     <span
                       className="text-[10px] px-3 py-1 rounded-full w-fit"
                       style={{
-                        background: "#0f2a1e",
-                        color: "#2dd4a0",
+                        background: "#e8f5f0",
+                        color: "#0b7a5a",
                         fontFamily: "'DM Mono', monospace",
                       }}
                     >
@@ -191,36 +191,36 @@ export default function HomePage() {
                   )}
                   <h3
                     className="font-medium text-lg"
-                    style={{ color: "#e2ede8" }}
+                    style={{ color: "#152820" }}
                   >
                     {p.nome}
                   </h3>
                   <div
                     className="text-3xl font-semibold"
-                    style={{ color: "#2dd4a0", letterSpacing: "-0.02em" }}
+                    style={{ color: "#0b7a5a", letterSpacing: "-0.02em" }}
                   >
                     €{p.prezzo_mese}
                     <span
                       className="text-sm font-light ml-1"
-                      style={{ color: "#4d7060" }}
+                      style={{ color: "#8ab8a8" }}
                     >
                       /mese
                     </span>
                   </div>
-                  <p className="text-xs" style={{ color: "#4d7060" }}>
+                  <p className="text-xs" style={{ color: "#8ab8a8" }}>
                     Setup €{p.prezzo_setup} una tantum
                   </p>
                   <ul
                     className="flex flex-col gap-1.5 pt-2"
-                    style={{ borderTop: "0.5px solid #1a2e24" }}
+                    style={{ borderTop: "0.5px solid #dceae5" }}
                   >
                     {p.features?.map((f, j) => (
                       <li
                         key={j}
                         className="text-sm flex gap-2"
-                        style={{ color: "#6b8f7d" }}
+                        style={{ color: "#5a8a7a" }}
                       >
-                        <span style={{ color: "#2dd4a0" }}>↗</span> {f}
+                        <span style={{ color: "#0b7a5a" }}>↗</span> {f}
                       </li>
                     ))}
                   </ul>
@@ -233,7 +233,7 @@ export default function HomePage() {
                 style={{
                   fontFamily: "'DM Mono', monospace",
                   fontSize: "11px",
-                  color: "#2dd4a0",
+                  color: "#0b7a5a",
                   letterSpacing: "0.05em",
                 }}
               >
@@ -244,17 +244,17 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── PORTFOLIO ── sfondo base */}
+      {/* ── PORTFOLIO ── sfondo scuro */}
       {portfolio?.casi_studio?.length > 0 && (
         <section
-          style={{ background: "#0a0f0d", borderBottom: "0.5px solid #1a2e24" }}
+          style={{ background: "#0e1520", borderBottom: "0.5px solid #1a2e3a" }}
         >
           <SectionWrapper>
             <div className="text-center mb-10">
-              <SectionEyebrow label="Portfolio" />
+              <SectionEyebrow label="Portfolio" dark />
               <h2
                 className="text-3xl font-medium tracking-tight"
-                style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+                style={{ color: "#e8f0ee", letterSpacing: "-0.02em" }}
               >
                 {portfolio.titolo_sezione}
               </h2>
@@ -265,8 +265,8 @@ export default function HomePage() {
                   key={i}
                   className="rounded-xl overflow-hidden group"
                   style={{
-                    background: "#0d1510",
-                    border: "0.5px solid #1a2e24",
+                    background: "#162030",
+                    border: "0.5px solid #1a2e3a",
                   }}
                 >
                   {c.immagine ? (
@@ -287,7 +287,7 @@ export default function HomePage() {
                         style={{
                           fontFamily: "'DM Mono', monospace",
                           fontSize: "10px",
-                          color: "#2dd4a0",
+                          color: "#34d5a8",
                           opacity: 0.4,
                         }}
                       >
@@ -298,19 +298,19 @@ export default function HomePage() {
                   <div className="p-5">
                     <span
                       className="text-[10px] px-2 py-1 rounded-full"
-                      style={{ background: "#0f2a1e", color: "#2dd4a0" }}
+                      style={{ background: "#0d2a28", color: "#34d5a8" }}
                     >
                       {c.tag}
                     </span>
                     <h3
                       className="font-medium mt-3 mb-1"
-                      style={{ color: "#e2ede8" }}
+                      style={{ color: "#e8f0ee" }}
                     >
                       {c.titolo}
                     </h3>
                     <p
                       className="text-sm leading-relaxed"
-                      style={{ color: "#4d7060" }}
+                      style={{ color: "#6e9aaa" }}
                     >
                       {c.descrizione}
                     </p>
@@ -324,7 +324,7 @@ export default function HomePage() {
                 style={{
                   fontFamily: "'DM Mono', monospace",
                   fontSize: "11px",
-                  color: "#2dd4a0",
+                  color: "#34d5a8",
                   letterSpacing: "0.05em",
                 }}
               >
@@ -335,17 +335,17 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── BLOG ── sfondo alt */}
+      {/* ── BLOG ── sfondo chiaro */}
       {posts.length > 0 && (
         <section
-          style={{ background: "#0d1510", borderBottom: "0.5px solid #1a2e24" }}
+          style={{ background: "#f4f8f7", borderBottom: "0.5px solid #dceae5" }}
         >
           <SectionWrapper>
             <div className="text-center mb-10">
               <SectionEyebrow label="Blog" />
               <h2
                 className="text-3xl font-medium tracking-tight"
-                style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+                style={{ color: "#152820", letterSpacing: "-0.02em" }}
               >
                 Articoli recenti
               </h2>
@@ -361,7 +361,7 @@ export default function HomePage() {
                 style={{
                   fontFamily: "'DM Mono', monospace",
                   fontSize: "11px",
-                  color: "#2dd4a0",
+                  color: "#0b7a5a",
                   letterSpacing: "0.05em",
                 }}
               >
@@ -372,17 +372,17 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── TESTIMONIANZE ── sfondo base */}
+      {/* ── TESTIMONIANZE ── sfondo chiaro */}
       {testimonianze?.testimonianze?.length > 0 && (
         <section
-          style={{ background: "#0a0f0d", borderBottom: "0.5px solid #1a2e24" }}
+          style={{ background: "#f4f8f7", borderBottom: "0.5px solid #dceae5" }}
         >
           <SectionWrapper>
             <div className="text-center mb-10">
               <SectionEyebrow label="Testimonianze" />
               <h2
                 className="text-3xl font-medium tracking-tight"
-                style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+                style={{ color: "#152820", letterSpacing: "-0.02em" }}
               >
                 {testimonianze.titolo_sezione}
               </h2>
@@ -393,22 +393,22 @@ export default function HomePage() {
                   key={i}
                   className="rounded-xl p-6"
                   style={{
-                    background: "#0d1510",
-                    border: "0.5px solid #1a2e24",
+                    background: "#ffffff",
+                    border: "0.5px solid #dceae5",
                   }}
                 >
-                  <div className="text-sm mb-3" style={{ color: "#2dd4a0" }}>
+                  <div className="text-sm mb-3" style={{ color: "#0b7a5a" }}>
                     {"★".repeat(t.valutazione || 5)}
                   </div>
                   <p
                     className="text-sm leading-relaxed italic mb-4"
-                    style={{ color: "#6b8f7d" }}
+                    style={{ color: "#5a8a7a" }}
                   >
                     "{t.testo}"
                   </p>
                   <p
                     className="text-sm font-medium"
-                    style={{ color: "#e2ede8" }}
+                    style={{ color: "#152820" }}
                   >
                     {t.nome_cliente}
                   </p>
@@ -416,7 +416,7 @@ export default function HomePage() {
                     style={{
                       fontFamily: "'DM Mono', monospace",
                       fontSize: "10px",
-                      color: "#2dd4a0",
+                      color: "#0b7a5a",
                     }}
                   >
                     {t.azienda}
@@ -428,21 +428,21 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── FORM CONTATTI ── sfondo alt */}
-      <section style={{ background: "#0d1510" }}>
+      {/* ── FORM CONTATTI ── sfondo chiaro */}
+      <section style={{ background: "#f4f8f7" }}>
         <SectionWrapper>
           <div className="max-w-xl mx-auto">
             <div className="text-center mb-8">
               <SectionEyebrow label="Contatti" />
               <h2
                 className="text-3xl font-medium tracking-tight"
-                style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+                style={{ color: "#152820", letterSpacing: "-0.02em" }}
               >
                 {t("contatti.titolo")}
               </h2>
               <p
                 className="mt-2 text-sm font-light"
-                style={{ color: "#4d7060" }}
+                style={{ color: "#8ab8a8" }}
               >
                 {t("contatti.sottotitolo")}
               </p>

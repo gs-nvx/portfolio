@@ -109,18 +109,18 @@ export default function ConfiguratorSection() {
 
   return (
     <section
-      style={{ background: "#0d1510", borderTop: "0.5px solid #1a2e24" }}
+      style={{ background: "#f4f8f7", borderTop: "0.5px solid #dceae5" }}
     >
       <div className="max-w-5xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
           <SectionEyebrow label="Configura il tuo prodotto" />
           <h2
             className="text-3xl font-medium"
-            style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+            style={{ color: "#152820", letterSpacing: "-0.02em" }}
           >
             Costruisci la tua soluzione
           </h2>
-          <p className="mt-2 text-sm font-light" style={{ color: "#4d7060" }}>
+          <p className="mt-2 text-sm font-light" style={{ color: "#8ab8a8" }}>
             Scegli un pacchetto base e aggiungi i servizi che ti servono
           </p>
         </div>
@@ -148,7 +148,7 @@ export default function ConfiguratorSection() {
             {!selectedPackage && (
               <p
                 className="text-sm text-center py-8"
-                style={{ color: "#4d7060" }}
+                style={{ color: "#8ab8a8" }}
               >
                 Seleziona un pacchetto base per vedere i servizi disponibili
               </p>

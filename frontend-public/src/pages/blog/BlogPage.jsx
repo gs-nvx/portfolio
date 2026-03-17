@@ -20,13 +20,13 @@ export default function BlogPage() {
       <Helmet>
         <title>Blog — GST Code Lab</title>
       </Helmet>
-      <div style={{ background: "#0a0f0d" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#f4f8f7" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="text-center mb-12">
             <SectionEyebrow label="Blog" />
             <h1
               className="text-4xl font-medium"
-              style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+              style={{ color: "#152820", letterSpacing: "-0.02em" }}
             >
               Articoli
             </h1>
@@ -39,7 +39,7 @@ export default function BlogPage() {
           {data?.content?.length === 0 && (
             <p
               className="text-center py-16 text-sm"
-              style={{ color: "#4d7060" }}
+              style={{ color: "#8ab8a8" }}
             >
               Nessun articolo pubblicato.
             </p>
@@ -51,7 +51,7 @@ export default function BlogPage() {
                 onClick={() => setPage((p) => p - 1)}
                 className="text-sm transition disabled:opacity-30"
                 style={{
-                  color: "#6b8f7d",
+                  color: "#5a8a7a",
                   fontFamily: "'DM Mono', monospace",
                 }}
               >
@@ -59,7 +59,7 @@ export default function BlogPage() {
               </button>
               <span
                 className="text-xs"
-                style={{ color: "#4d7060", fontFamily: "'DM Mono', monospace" }}
+                style={{ color: "#8ab8a8", fontFamily: "'DM Mono', monospace" }}
               >
                 {page + 1} / {data.totalPages}
               </span>
@@ -68,7 +68,7 @@ export default function BlogPage() {
                 onClick={() => setPage((p) => p + 1)}
                 className="text-sm transition disabled:opacity-30"
                 style={{
-                  color: "#6b8f7d",
+                  color: "#5a8a7a",
                   fontFamily: "'DM Mono', monospace",
                 }}
               >

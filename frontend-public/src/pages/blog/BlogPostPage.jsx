@@ -30,21 +30,21 @@ export default function BlogPostPage() {
           <meta property="og:image" content={post.seoOgImage} />
         )}
       </Helmet>
-      <div style={{ background: "#0a0f0d" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#f4f8f7" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="max-w-2xl mx-auto">
             <div className="mb-8">
               {post?.category && (
                 <span
                   className="text-[10px] px-3 py-1 rounded-full"
-                  style={{ background: "#0f2a1e", color: "#2dd4a0" }}
+                  style={{ background: "#e8f5f0", color: "#0b7a5a" }}
                 >
                   {post.category}
                 </span>
               )}
               <h1
                 className="text-3xl font-medium mt-4 mb-3 leading-snug"
-                style={{ color: "#e2ede8", letterSpacing: "-0.02em" }}
+                style={{ color: "#152820", letterSpacing: "-0.02em" }}
               >
                 {post?.title}
               </h1>
@@ -52,7 +52,7 @@ export default function BlogPostPage() {
                 <p
                   className="text-xs"
                   style={{
-                    color: "#4d7060",
+                    color: "#8ab8a8",
                     fontFamily: "'DM Mono', monospace",
                   }}
                 >
@@ -69,12 +69,12 @@ export default function BlogPostPage() {
                 src={post.seoOgImage}
                 alt={post.title}
                 className="w-full rounded-xl mb-8"
-                style={{ border: "0.5px solid #1a2e24" }}
+                style={{ border: "0.5px solid #dceae5" }}
               />
             )}
             <div
               className="text-base leading-relaxed whitespace-pre-line"
-              style={{ color: "#6b8f7d", fontWeight: 300 }}
+              style={{ color: "#5a8a7a", fontWeight: 300 }}
             >
               {post?.body}
             </div>

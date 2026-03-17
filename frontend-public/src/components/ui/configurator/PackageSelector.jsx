@@ -3,7 +3,7 @@ export default function PackageSelector({ packages, selected, onSelect }) {
     <div>
       <p
         className="text-xs uppercase tracking-widest mb-3"
-        style={{ color: "#4d7060", fontFamily: "'DM Mono', monospace" }}
+        style={{ color: "#8ab8a8", fontFamily: "'DM Mono', monospace" }}
       >
         1. Scegli il pacchetto base
       </p>
@@ -25,10 +25,10 @@ export default function PackageSelector({ packages, selected, onSelect }) {
               onClick={() => onSelect(pkg)}
               className="rounded-xl p-4 text-left transition relative"
               style={{
-                background: isSelected ? "#0f2a1e" : "#0a0f0d",
+                background: isSelected ? "#e8f5f0" : "#ffffff",
                 border: isSelected
-                  ? "1px solid #2dd4a0"
-                  : "0.5px solid #1a2e24",
+                  ? "1px solid #0b7a5a"
+                  : "0.5px solid #dceae5",
                 cursor: "pointer",
               }}
             >
@@ -37,8 +37,8 @@ export default function PackageSelector({ packages, selected, onSelect }) {
                   <span
                     className="text-[9px] px-2 py-0.5 rounded-full"
                     style={{
-                      background: "#2dd4a0",
-                      color: "#062318",
+                      background: "#0b7a5a",
+                      color: "#04281e",
                       fontFamily: "'DM Mono', monospace",
                     }}
                   >
@@ -48,26 +48,26 @@ export default function PackageSelector({ packages, selected, onSelect }) {
               )}
               <p
                 className="font-medium text-sm mb-1 mt-1"
-                style={{ color: isSelected ? "#2dd4a0" : "#e2ede8" }}
+                style={{ color: isSelected ? "#0b7a5a" : "#152820" }}
               >
                 {pkg.name}
               </p>
               {pkg.offerEnabled && pkg.offerDiscountMonthly > 0 && (
                 <p
                   className="text-xs line-through"
-                  style={{ color: "#4d7060" }}
+                  style={{ color: "#8ab8a8" }}
                 >
                   €{pkg.monthlyAmount}/mese
                 </p>
               )}
               <p
                 className="text-lg font-semibold"
-                style={{ color: "#2dd4a0", letterSpacing: "-0.02em" }}
+                style={{ color: "#0b7a5a", letterSpacing: "-0.02em" }}
               >
                 €{finalMonthly}
                 <span
                   className="text-xs font-light ml-1"
-                  style={{ color: "#4d7060" }}
+                  style={{ color: "#8ab8a8" }}
                 >
                   /mese
                 </span>
@@ -76,16 +76,16 @@ export default function PackageSelector({ packages, selected, onSelect }) {
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <p
                     className="text-xs line-through"
-                    style={{ color: "#4d7060" }}
+                    style={{ color: "#8ab8a8" }}
                   >
                     €{pkg.setupAmount}
                   </p>
-                  <p className="text-xs" style={{ color: "#2dd4a0" }}>
+                  <p className="text-xs" style={{ color: "#0b7a5a" }}>
                     €{finalSetup}
                   </p>
                 </div>
               ) : (
-                <p className="text-xs mt-0.5" style={{ color: "#4d7060" }}>
+                <p className="text-xs mt-0.5" style={{ color: "#8ab8a8" }}>
                   Setup €{finalSetup}
                 </p>
               )}

@@ -30,9 +30,14 @@ export default function ContactForm() {
         value={form.nome}
         onChange={set("nome")}
         required
-        className="bg-[#161b22] text-white border border-gray-700
-          rounded-lg px-4 py-3 text-sm outline-none
-          focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+        className="rounded-lg px-4 py-3 text-sm outline-none
+          focus:ring-2 focus:ring-[#0b7a5a] focus:border-[#0b7a5a]
+          placeholder-[#8ab8a8]"
+        style={{
+          background: "#ffffff",
+          color: "#152820",
+          border: "1px solid #dceae5",
+        }}
       />
       <input
         type="email"
@@ -40,9 +45,14 @@ export default function ContactForm() {
         value={form.email}
         onChange={set("email")}
         required
-        className="bg-[#161b22] text-white border border-gray-700
-          rounded-lg px-4 py-3 text-sm outline-none
-          focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+        className="rounded-lg px-4 py-3 text-sm outline-none
+          focus:ring-2 focus:ring-[#0b7a5a] focus:border-[#0b7a5a]
+          placeholder-[#8ab8a8]"
+        style={{
+          background: "#ffffff",
+          color: "#152820",
+          border: "1px solid #dceae5",
+        }}
       />
       <textarea
         placeholder={t("contatti.messaggio")}
@@ -50,12 +60,19 @@ export default function ContactForm() {
         onChange={set("messaggio")}
         required
         rows={5}
-        className="bg-[#161b22] text-white border border-gray-700
-          rounded-lg px-4 py-3 text-sm outline-none resize-none
-          focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+        className="rounded-lg px-4 py-3 text-sm outline-none resize-none
+          focus:ring-2 focus:ring-[#0b7a5a] focus:border-[#0b7a5a]
+          placeholder-[#8ab8a8]"
+        style={{
+          background: "#ffffff",
+          color: "#152820",
+          border: "1px solid #dceae5",
+        }}
       />
       {status === "ok" && (
-        <p className="text-teal-400 text-sm">{t("contatti.invio_ok")}</p>
+        <p className="text-sm" style={{ color: "#0b7a5a" }}>
+          {t("contatti.invio_ok")}
+        </p>
       )}
       {status === "error" && (
         <p className="text-red-400 text-sm">{t("contatti.invio_errore")}</p>
@@ -63,8 +80,8 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="bg-teal-600 hover:bg-teal-500 text-white font-medium
-          text-sm py-3 rounded-lg transition disabled:opacity-50"
+        className="font-medium text-sm py-3 rounded-lg transition disabled:opacity-50"
+        style={{ background: "#0b7a5a", color: "#ffffff" }}
       >
         {status === "loading" ? "..." : t("contatti.invia")}
       </button>
