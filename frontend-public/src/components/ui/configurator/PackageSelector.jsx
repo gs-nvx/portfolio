@@ -25,7 +25,7 @@ export default function PackageSelector({ packages, selected, onSelect }) {
               onClick={() => onSelect(pkg)}
               className="rounded-xl p-4 text-left transition relative"
               style={{
-                background: isSelected ? "#e8f5f0" : "#ffffff",
+                background: isSelected ? "#e8f5f0" : "#f4f8f7",
                 border: isSelected
                   ? "1px solid #0b7a5a"
                   : "0.5px solid #dceae5",
@@ -57,13 +57,20 @@ export default function PackageSelector({ packages, selected, onSelect }) {
                   className="text-xs line-through"
                   style={{ color: "#8ab8a8" }}
                 >
-                  €{pkg.monthlyAmount}/mese
+                  da €{pkg.monthlyAmount}/mese
                 </p>
               )}
+
               <p
                 className="text-lg font-semibold"
                 style={{ color: "#0b7a5a", letterSpacing: "-0.02em" }}
               >
+                <span
+                  className="text-xs font-light ml-1"
+                  style={{ color: "#8ab8a8" }}
+                >
+                  da
+                </span>
                 €{finalMonthly}
                 <span
                   className="text-xs font-light ml-1"
@@ -81,12 +88,12 @@ export default function PackageSelector({ packages, selected, onSelect }) {
                     €{pkg.setupAmount}
                   </p>
                   <p className="text-xs" style={{ color: "#0b7a5a" }}>
-                    €{finalSetup}
+                    Setup da €{finalSetup}
                   </p>
                 </div>
               ) : (
                 <p className="text-xs mt-0.5" style={{ color: "#8ab8a8" }}>
-                  Setup €{finalSetup}
+                  Setup da €{finalSetup}
                 </p>
               )}
             </button>

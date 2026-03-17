@@ -40,4 +40,16 @@ public class ConfiguratorService {
 
     @Column(nullable = false)
     private boolean enabled;
+
+    @Column(name = "visible_for", length = 500)
+    private String visibleFor;
+
+    @Column(name = "exclusive_group", length = 100)
+    private String exclusiveGroup;
+
+    @Column(name = "client_label", length = 200)
+    private String clientLabel;
+
+    @Column(name = "client_description", length = 500)
+    private String clientDescription;
 }

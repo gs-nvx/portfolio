@@ -7,6 +7,7 @@ import java.util.List;
 public record ConfiguratorPackageCreateDTO(
         @NotBlank String name,
         String description,
+        String activityType,
         @NotNull int setupAmount,
         @NotNull int monthlyAmount,
         @NotNull int sortOrder,

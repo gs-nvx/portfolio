@@ -19,7 +19,20 @@ export default function BlogPostPage() {
       .finally(() => setLoading(false));
   }, [slug, i18n.language]);
 
-  if (loading) return null;
+  if (loading)
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: "#ffffff" }}
+      >
+        <span
+          style={{ fontFamily: "'DM Mono', monospace" }}
+          className="text-[#6e9aaa] text-xs tracking-widest"
+        >
+          Caricamento...
+        </span>
+      </div>
+    );
 
   return (
     <>
@@ -30,7 +43,7 @@ export default function BlogPostPage() {
           <meta property="og:image" content={post.seoOgImage} />
         )}
       </Helmet>
-      <div style={{ background: "#f4f8f7" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#ffffff" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="max-w-2xl mx-auto">
             <div className="mb-8">

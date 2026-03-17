@@ -9,20 +9,33 @@ export default function PortfolioPage() {
   const { getContent, loading } = useCmsSections(i18n.language);
   const portfolio = getContent("portfolio");
 
-  if (loading) return null;
+  if (loading)
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: "#ffffff" }}
+      >
+        <span
+          style={{ fontFamily: "'DM Mono', monospace" }}
+          className="text-[#6e9aaa] text-xs tracking-widest"
+        >
+          Caricamento...
+        </span>
+      </div>
+    );
 
   return (
     <>
       <Helmet>
         <title>Portfolio — GST Code Lab</title>
       </Helmet>
-      <div style={{ background: "#0e1520" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#ffffff" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="text-center mb-12">
-            <SectionEyebrow label="Portfolio" dark />
+            <SectionEyebrow label="Portfolio" />
             <h1
               className="text-4xl font-medium"
-              style={{ color: "#e8f0ee", letterSpacing: "-0.02em" }}
+              style={{ color: "#152820", letterSpacing: "-0.02em" }}
             >
               {portfolio?.titolo_sezione || "Casi studio"}
             </h1>
@@ -32,7 +45,7 @@ export default function PortfolioPage() {
               <div
                 key={i}
                 className="rounded-xl overflow-hidden group"
-                style={{ background: "#162030", border: "0.5px solid #1a2e3a" }}
+                style={{ background: "#f4f8f7", border: "0.5px solid #dceae5" }}
               >
                 {c.immagine ? (
                   <img
@@ -52,7 +65,7 @@ export default function PortfolioPage() {
                       style={{
                         fontFamily: "'DM Mono', monospace",
                         fontSize: "10px",
-                        color: "#34d5a8",
+                        color: "#8ab8a8",
                         opacity: 0.4,
                       }}
                     >
@@ -63,19 +76,19 @@ export default function PortfolioPage() {
                 <div className="p-5">
                   <span
                     className="text-[10px] px-2 py-1 rounded-full"
-                    style={{ background: "#0d2a28", color: "#34d5a8" }}
+                    style={{ background: "#8ab8a8", color: "#152820" }}
                   >
                     {c.tag}
                   </span>
                   <h2
                     className="font-medium mt-3 mb-2"
-                    style={{ color: "#e8f0ee" }}
+                    style={{ color: "#152820" }}
                   >
                     {c.titolo}
                   </h2>
                   <p
                     className="text-sm leading-relaxed"
-                    style={{ color: "#6e9aaa" }}
+                    style={{ color: "#5a8a7a" }}
                   >
                     {c.descrizione}
                   </p>

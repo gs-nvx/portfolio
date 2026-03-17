@@ -283,6 +283,12 @@ function PackageForm({ data, services, onChange, onSave, onCancel, saving }) {
         value={data.description || ""}
         onChange={set("description")}
       />
+      <Input
+        label="Tipo attività (activity type)"
+        value={data.activityType || ""}
+        onChange={set("activityType")}
+        placeholder="es. retail, hospitality, fitness..."
+      />
       <div className="grid grid-cols-2 gap-3">
         <Input
           label="Setup (€)"
@@ -459,6 +465,25 @@ function ServiceForm({
         label="Descrizione"
         value={data.description || ""}
         onChange={set("description")}
+      />
+      <Textarea
+        label="Descrizione cliente"
+        value={data.clientDescription || ""}
+        onChange={set("clientDescription")}
+        placeholder="Spiegazione breve per il cliente"
+        className="min-h-16"
+      />
+      <Input
+        label="Visibile per (activity types, separati da virgola)"
+        value={data.visibleFor || ""}
+        onChange={set("visibleFor")}
+        placeholder="es. hospitality,fitness — vuoto = tutti"
+      />
+      <Input
+        label="Gruppo esclusivo"
+        value={data.exclusiveGroup || ""}
+        onChange={set("exclusiveGroup")}
+        placeholder="es. seo — vuoto = nessuno"
       />
       <div className="grid grid-cols-2 gap-3">
         <Input

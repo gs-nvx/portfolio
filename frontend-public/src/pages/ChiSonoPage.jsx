@@ -9,20 +9,33 @@ export default function ChiSonoPage() {
   const { getContent, loading } = useCmsSections(i18n.language);
   const chiSono = getContent("chi_sono");
 
-  if (loading) return null;
+  if (loading)
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: "#f4f8f7" }}
+      >
+        <span
+          style={{ fontFamily: "'DM Mono', monospace" }}
+          className="text-[#6e9aaa] text-xs tracking-widest"
+        >
+          Caricamento...
+        </span>
+      </div>
+    );
 
   return (
     <>
       <Helmet>
         <title>Chi sono — GST Code Lab</title>
       </Helmet>
-      <div style={{ background: "#0e1520" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#f4f8f7" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="max-w-2xl mx-auto">
-            <SectionEyebrow label="Chi sono" dark />
+            <SectionEyebrow label="Chi sono" />
             <h1
               className="text-4xl font-medium mb-6"
-              style={{ color: "#e8f0ee", letterSpacing: "-0.02em" }}
+              style={{ color: "#152820", letterSpacing: "-0.02em" }}
             >
               {chiSono?.titolo || "Chi sono"}
             </h1>

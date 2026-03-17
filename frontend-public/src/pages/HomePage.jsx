@@ -56,10 +56,23 @@ export default function HomePage() {
         style={{
           background: "#0e1520",
           backgroundImage: `
-            linear-gradient(rgba(45,212,160,0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(45,212,160,0.04) 1px, transparent 1px)
-          `,
-          backgroundSize: "40px 40px",
+    radial-gradient(circle at 15% 85%, rgba(52,213,168,0.1) 0%, transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(52,213,168,0.1) 0%, transparent 45%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 28px,
+      rgba(52,213,168,0.03) 28px,
+      rgba(52,213,168,0.03) 29px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 28px,
+      rgba(52,213,168,0.03) 28px,
+      rgba(52,213,168,0.03) 29px
+    )
+  `,
         }}
       >
         {/* fade bottom */}
@@ -244,17 +257,20 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── PORTFOLIO ── sfondo scuro */}
+      {/* ── PORTFOLIO ── sfondo chiaro */}
       {portfolio?.casi_studio?.length > 0 && (
         <section
-          style={{ background: "#0e1520", borderBottom: "0.5px solid #1a2e3a" }}
+          style={{
+            background: "#ffffff",
+            borderBottom: "0.5px solid #dceae5",
+          }}
         >
           <SectionWrapper>
             <div className="text-center mb-10">
               <SectionEyebrow label="Portfolio" dark />
               <h2
                 className="text-3xl font-medium tracking-tight"
-                style={{ color: "#e8f0ee", letterSpacing: "-0.02em" }}
+                style={{ color: "#152820", letterSpacing: "-0.02em" }}
               >
                 {portfolio.titolo_sezione}
               </h2>
@@ -265,8 +281,8 @@ export default function HomePage() {
                   key={i}
                   className="rounded-xl overflow-hidden group"
                   style={{
-                    background: "#162030",
-                    border: "0.5px solid #1a2e3a",
+                    background: "#f4f8f7",
+                    border: "0.5px solid #dceae5",
                   }}
                 >
                   {c.immagine ? (
@@ -287,7 +303,7 @@ export default function HomePage() {
                         style={{
                           fontFamily: "'DM Mono', monospace",
                           fontSize: "10px",
-                          color: "#34d5a8",
+                          color: "##8ab8a8",
                           opacity: 0.4,
                         }}
                       >
@@ -298,19 +314,19 @@ export default function HomePage() {
                   <div className="p-5">
                     <span
                       className="text-[10px] px-2 py-1 rounded-full"
-                      style={{ background: "#0d2a28", color: "#34d5a8" }}
+                      style={{ background: "#8ab8a8", color: "#152820" }}
                     >
                       {c.tag}
                     </span>
                     <h3
                       className="font-medium mt-3 mb-1"
-                      style={{ color: "#e8f0ee" }}
+                      style={{ color: "#152820" }}
                     >
                       {c.titolo}
                     </h3>
                     <p
                       className="text-sm leading-relaxed"
-                      style={{ color: "#6e9aaa" }}
+                      style={{ color: "#5a8a7a" }}
                     >
                       {c.descrizione}
                     </p>
@@ -375,7 +391,7 @@ export default function HomePage() {
       {/* ── TESTIMONIANZE ── sfondo chiaro */}
       {testimonianze?.testimonianze?.length > 0 && (
         <section
-          style={{ background: "#f4f8f7", borderBottom: "0.5px solid #dceae5" }}
+          style={{ background: "#ffffff", borderBottom: "0.5px solid #dceae5" }}
         >
           <SectionWrapper>
             <div className="text-center mb-10">

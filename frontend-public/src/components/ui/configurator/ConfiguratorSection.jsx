@@ -3,8 +3,9 @@ import {
   getConfiguratorPackages,
   getConfiguratorServices,
 } from "../../../api/configuratorApi";
-import PackageSelector from "./PackageSelector";
-import ServiceCategory from "./ServiceCategory";
+import ActivitySelector from "./ActivitySelector";
+import IncludedServices from "./IncludedServices";
+import AddOnSelector from "./AddOnSelector";
 import ConfiguratorSummary from "./ConfiguratorSummary";
 import SectionEyebrow from "../SectionEyebrow";
 
@@ -12,7 +13,8 @@ export default function ConfiguratorSection() {
   const [packages, setPackages] = useState([]);
   const [services, setServices] = useState([]);
   const [selectedPackage, setSelectedPackage] = useState(null);
-  const [selectedServices, setSelectedServices] = useState(new Set());
+  const [selectedAddOns, setSelectedAddOns] = useState(new Set());
+  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,134 +26,133 @@ export default function ConfiguratorSection() {
       .finally(() => setLoading(false));
   }, []);
 
-  const isServiceAvailable = (service) => {
-    if (service.requiresPackageId && selectedPackage) {
-      const requiredPkg = packages.find(
-        (p) => p.id === service.requiresPackageId,
-      );
-      if (!requiredPkg || selectedPackage.sortOrder < requiredPkg.sortOrder)
-        return false;
-    }
-    if (service.requiresPackageId && !selectedPackage) return false;
-    if (
-      service.requiresServiceId &&
-      !selectedServices.has(service.requiresServiceId)
-    )
-      return false;
-    return true;
-  };
+  const addOns = services.filter((s) => s.category === "Add-on");
+  const includedServices = selectedPackage
+    ? services.filter((s) => selectedPackage.includedServiceIds?.includes(s.id))
+    : [];
 
-  const toggleService = (service) => {
-    if (!isServiceAvailable(service)) return;
-    setSelectedServices((prev) => {
+  const visibleAddOns = addOns
+    .filter((s) => {
+      if (!s.visibleFor) return true;
+      return s.visibleFor.split(",").includes(selectedPackage?.activityType);
+    })
+    .filter((s) => {
+      // shop non appare per ecommerce (già incluso)
+      if (
+        s.name === "Negozio online" &&
+        selectedPackage?.activityType === "ecommerce"
+      )
+        return false;
+      // members non appare se già incluso
+      if (selectedPackage?.includedServiceIds?.includes(s.id)) return false;
+      return true;
+    });
+
+  const toggleAddOn = (addon) => {
+    setSelectedAddOns((prev) => {
       const next = new Set(prev);
-      if (next.has(service.id)) {
-        next.delete(service.id);
-        // rimuovi i servizi che dipendono da questo
-        services.forEach((s) => {
-          if (s.requiresServiceId === service.id) next.delete(s.id);
-        });
-      } else {
-        next.add(service.id);
+      if (addon.exclusiveGroup) {
+        addOns
+          .filter(
+            (a) =>
+              a.exclusiveGroup === addon.exclusiveGroup && a.id !== addon.id,
+          )
+          .forEach((a) => next.delete(a.id));
       }
+      next.has(addon.id) ? next.delete(addon.id) : next.add(addon.id);
       return next;
     });
   };
-
-  const isServiceAvailableWith = (service, pkg, selectedSet) => {
-    if (service.requiresPackageId) {
-      if (!pkg) return false;
-      const requiredPkg = packages.find(
-        (p) => p.id === service.requiresPackageId,
-      );
-      if (!requiredPkg || pkg.sortOrder < requiredPkg.sortOrder) return false;
-    }
-    if (
-      service.requiresServiceId &&
-      !selectedSet.has(service.requiresServiceId)
-    )
-      return false;
-    return true;
-  };
-
-  const categories = [
-    ...new Set(
-      services.filter((s) => s.category !== "Base").map((s) => s.category),
-    ),
-  ];
-  const selectedServicesList = services.filter((s) =>
-    selectedServices.has(s.id),
-  );
 
   const handlePackageSelect = (pkg) => {
     setSelectedPackage(pkg);
-    // pre-seleziona i servizi inclusi nel pacchetto
-    const includedIds = new Set(pkg.includedServiceIds || []);
-    // mantieni extra già selezionati compatibili + aggiungi inclusi
-    setSelectedServices((prev) => {
-      const next = new Set(includedIds);
-      // mantieni extra precedenti se ancora disponibili
-      prev.forEach((id) => {
-        if (!includedIds.has(id)) {
-          const svc = services.find((s) => s.id === id);
-          if (svc && isServiceAvailableWith(svc, pkg, next)) next.add(id);
-        }
-      });
-      return next;
-    });
+    setSelectedAddOns(new Set());
+    setStep(2);
   };
 
-  // servizio locked = incluso nel pacchetto selezionato
-  const isServiceLocked = (service) =>
-    selectedPackage?.includedServiceIds?.includes(service.id) ?? false;
+  const selectedAddOnsList = addOns.filter((s) => selectedAddOns.has(s.id));
 
   if (loading) return null;
 
   return (
     <section
-      style={{ background: "#f4f8f7", borderTop: "0.5px solid #dceae5" }}
+      style={{ background: "#ffffff", borderTop: "0.5px solid #dceae5" }}
     >
       <div className="max-w-5xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
-          <SectionEyebrow label="Configura il tuo prodotto" />
+          <SectionEyebrow label="Configura la tua soluzione" />
           <h2
             className="text-3xl font-medium"
             style={{ color: "#152820", letterSpacing: "-0.02em" }}
           >
-            Costruisci la tua soluzione
+            Costruisci il tuo pacchetto
           </h2>
-          <p className="mt-2 text-sm font-light" style={{ color: "#8ab8a8" }}>
-            Scegli un pacchetto base e aggiungi i servizi che ti servono
+          <p className="mt-2 text-sm font-light" style={{ color: "#5a8a7a" }}>
+            Scegli il tipo di attività e personalizza con i servizi che ti
+            servono
           </p>
         </div>
 
+        {/* Indicatore step */}
+        <div className="flex items-center justify-center gap-3 mb-10">
+          {[1, 2, 3].map((s) => (
+            <div key={s} className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <div
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium transition"
+                  style={{
+                    background: step >= s ? "#0b7a5a" : "#f4f8f7",
+                    color: step >= s ? "#fff" : "#8ab8a8",
+                    border: step >= s ? "none" : "0.5px solid #dceae5",
+                  }}
+                >
+                  {s}
+                </div>
+                <span
+                  className="text-xs hidden sm:block"
+                  style={{ color: step >= s ? "#152820" : "#8ab8a8" }}
+                >
+                  {s === 1
+                    ? "Tipo attività"
+                    : s === 2
+                      ? "Servizi inclusi"
+                      : "Extra"}
+                </span>
+              </div>
+              {s < 3 && (
+                <div
+                  className="w-8 h-px"
+                  style={{ background: step > s ? "#0b7a5a" : "#dceae5" }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Configuratore */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            <PackageSelector
+            {/* Step 1 */}
+            <ActivitySelector
               packages={packages}
               selected={selectedPackage}
               onSelect={handlePackageSelect}
             />
-            {selectedPackage &&
-              categories.map((cat) => (
-                <ServiceCategory
-                  key={cat}
-                  category={cat}
-                  services={services.filter((s) => s.category === cat)}
-                  selectedServices={selectedServices}
-                  onToggle={toggleService}
-                  isAvailable={isServiceAvailable}
-                  isLocked={isServiceLocked}
-                />
-              ))}
-            {!selectedPackage && (
-              <p
-                className="text-sm text-center py-8"
-                style={{ color: "#8ab8a8" }}
-              >
-                Seleziona un pacchetto base per vedere i servizi disponibili
-              </p>
+
+            {/* Step 2 */}
+            {step >= 2 && selectedPackage && (
+              <IncludedServices
+                services={includedServices}
+                onNext={() => setStep(3)}
+              />
+            )}
+
+            {/* Step 3 */}
+            {step >= 3 && (
+              <AddOnSelector
+                addOns={visibleAddOns}
+                selected={selectedAddOns}
+                onToggle={toggleAddOn}
+              />
             )}
           </div>
 
@@ -159,7 +160,7 @@ export default function ConfiguratorSection() {
           <div className="lg:col-span-1">
             <ConfiguratorSummary
               selectedPackage={selectedPackage}
-              selectedServices={selectedServicesList}
+              selectedAddOns={selectedAddOnsList}
               allServices={services}
             />
           </div>

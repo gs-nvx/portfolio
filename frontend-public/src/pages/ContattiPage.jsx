@@ -6,12 +6,29 @@ import ContactForm from "../components/ui/ContactForm";
 
 export default function ContattiPage() {
   const { t } = useTranslation();
+  const { loading } = useCmsSections(i18n.language);
+
+  if (loading)
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: "#ffffff" }}
+      >
+        <span
+          style={{ fontFamily: "'DM Mono', monospace" }}
+          className="text-[#6e9aaa] text-xs tracking-widest"
+        >
+          Caricamento...
+        </span>
+      </div>
+    );
+
   return (
     <>
       <Helmet>
         <title>Contatti — GST Code Lab</title>
       </Helmet>
-      <div style={{ background: "#f4f8f7" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#ffffff" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="max-w-xl mx-auto">
             <div className="text-center mb-10">

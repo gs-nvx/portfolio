@@ -5,15 +5,32 @@ import SectionWrapper from "../../components/ui/SectionWrapper";
 import SectionEyebrow from "../../components/ui/SectionEyebrow";
 import BlogCard from "../../components/ui/BlogCard";
 import { getBlogPosts } from "../../api/blogApi";
+import { useCmsSections } from "../../hooks/useCms";
 
 export default function BlogPage() {
   const { i18n } = useTranslation();
   const [data, setData] = useState(null);
   const [page, setPage] = useState(0);
+  const { loading } = useCmsSections(i18n.language);
 
   useEffect(() => {
     getBlogPosts(i18n.language, page).then((r) => setData(r.data));
   }, [i18n.language, page]);
+
+  if (loading)
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: "#f4f8f7" }}
+      >
+        <span
+          style={{ fontFamily: "'DM Mono', monospace" }}
+          className="text-[#6e9aaa] text-xs tracking-widest"
+        >
+          Caricamento...
+        </span>
+      </div>
+    );
 
   return (
     <>

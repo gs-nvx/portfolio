@@ -1,7 +1,25 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useCmsSections } from "../hooks/useCms";
 
 export default function NotFoundPage() {
+  const { loading } = useCmsSections(i18n.language);
+
+  if (loading)
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: "#0a0f0d" }}
+      >
+        <span
+          style={{ fontFamily: "'DM Mono', monospace" }}
+          className="text-[#6e9aaa] text-xs tracking-widest"
+        >
+          Caricamento...
+        </span>
+      </div>
+    );
+
   return (
     <>
       <Helmet>

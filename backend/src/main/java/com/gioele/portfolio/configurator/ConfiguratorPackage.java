@@ -45,6 +45,9 @@ public class ConfiguratorPackage {
     @Column(name = "offer_enabled", nullable = false)
     private boolean offerEnabled;
 
+    @Column(name = "activity_type", length = 100)
+    private String activityType;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "configurator_package_services",

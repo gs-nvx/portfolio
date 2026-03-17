@@ -122,153 +122,221 @@ public class DataInitializer implements CommandLineRunner {
         }
 
     }
-
-
     private void seedConfigurator() {
 
-        // ── Servizi base ──
-        ConfiguratorService vetrinaBase = svc("Base", "Sito vetrina configurabile",
-                "Pagine gestibili da pannello CMS", 0, 0, null, null, 1);
-        ConfiguratorService hostingBase = svc("Base", "Hosting e dominio incluso",
-                "Server dedicato con dominio personalizzato", 0, 0, null, null, 2);
-        ConfiguratorService sslBase = svc("Base", "SSL e sicurezza",
-                "Certificato SSL e protezione base", 0, 0, null, null, 3);
-        ConfiguratorService cmsBase = svc("Base", "Pannello di gestione contenuti",
-                "Editor visuale per testi e immagini", 0, 0, null, null, 4);
-        ConfiguratorService emailBase = svc("Base", "Email aziendale",
-                "Casella email con dominio personalizzato", 0, 0, null, null, 5);
-        ConfiguratorService backupBase = svc("Base", "Backup automatico",
-                "Backup giornaliero con retention 30gg", 0, 0, null, null, 6);
-        ConfiguratorService statsBase = svc("Base", "Statistiche di accesso",
-                "Dashboard visite e comportamento utenti", 0, 0, null, null, 7);
-        ConfiguratorService telefonoBase = svc("Base", "Assistenza telefonica",
-                "Supporto telefonico in orario lavorativo", 0, 0, null, null, 8);
-        ConfiguratorService catalogoBase = svc("Base", "Catalogo prodotti",
-                "Prodotti, categorie e filtri di ricerca", 0, 0, null, null, 9);
-        ConfiguratorService carrelloBase = svc("Base", "Carrello e checkout",
-                "Pagamenti online con Stripe", 0, 0, null, null, 10);
-        ConfiguratorService ordiniBase = svc("Base", "Gestione ordini",
-                "Dashboard ordini e stato spedizioni", 0, 0, null, null, 11);
-        ConfiguratorService crmBase2 = svc("Base", "CRM clienti",
-                "Anagrafica clienti e storico interazioni", 0, 0, null, null, 12);
-        ConfiguratorService fattBase = svc("Base", "Fatturazione",
-                "Preventivi e fatture PDF", 0, 0, null, null, 13);
-        ConfiguratorService kpiBase = svc("Base", "Dashboard KPI",
-                "Grafici e metriche di business", 0, 0, null, null, 14);
+        // ── Add-on / servizi extra ──
+        ConfiguratorService blog = configuratorServiceRepository.save(
+                svc("Add-on", "Blog integrato", "Sezione notizie e articoli",
+                        "Pubblica notizie, aggiornamenti e articoli sul tuo sito",
+                        "Sezione notizie e articoli con editor",
+                        150, 10, null, null, null, null, 1));
 
-        configuratorServiceRepository.saveAll(List.of(
-                vetrinaBase, hostingBase, sslBase, cmsBase, emailBase,
-                backupBase, statsBase, telefonoBase, catalogoBase, carrelloBase,
-                ordiniBase, crmBase2, fattBase, kpiBase
-        ));
+        ConfiguratorService multilang = configuratorServiceRepository.save(
+                svc("Add-on", "Multilingua EN", "Sito anche in inglese",
+                        "Versione inglese del sito per clienti internazionali",
+                        "i18n EN",
+                        200, 10, "hospitality,professional,ecommerce", null, null, null, 2));
 
-        // ── Servizi extra ──
-
-        // Sito pubblico
-        ConfiguratorService pagineExtra = svc("Sito pubblico", "Pagine aggiuntive (oltre 5)",
-                "Fino a 10 pagine totali", 100, 0, null, null, 1);
-        ConfiguratorService blog = svc("Sito pubblico", "Blog integrato",
-                "Sezione articoli con editor", 150, 10, null, null, 2);
-        ConfiguratorService multilingua = svc("Sito pubblico", "Multilingua (EN)",
-                "Versione inglese del sito", 200, 10, null, null, 3);
-        ConfiguratorService formAvanzato = svc("Sito pubblico", "Form contatti avanzato",
-                "Allegati e campi personalizzati", 100, 0, null, null, 4);
-        configuratorServiceRepository.saveAll(List.of(pagineExtra, blog, multilingua, formAvanzato));
-
-        // SEO
         ConfiguratorService seoBase = configuratorServiceRepository.save(
-                svc("SEO e ottimizzazione", "SEO base",
-                        "Meta tag, sitemap, Google Search Console", 150, 0, null, null, 1));
-        ConfiguratorService seoAdv = svc("SEO e ottimizzazione", "SEO avanzato",
-                "Ottimizzazione contenuti e report mensile", 300, 29, null, seoBase, 2);
-        ConfiguratorService analytics = svc("SEO e ottimizzazione", "Google Analytics",
-                "Installazione e configurazione", 80, 0, null, null, 3);
-        configuratorServiceRepository.saveAll(List.of(seoAdv, analytics));
+                svc("Add-on", "SEO base", "Fatti trovare su Google",
+                        "Configurazione base per apparire sui motori di ricerca",
+                        "SEO base + Google Search Console",
+                        120, 0, null, "seo", null, null, 3));
 
-        // Area riservata — salvo il pacchetto business dopo, uso placeholder
-        // lo aggiungo dopo la creazione dei pacchetti
+        ConfiguratorService seoAdv = configuratorServiceRepository.save(
+                svc("Add-on", "SEO avanzato", "Posizionamento avanzato su Google",
+                        "Ottimizzazione contenuti e report mensile di posizionamento",
+                        "SEO avanzato + report mensile",
+                        250, 29, null, "seo", null, null, 4));
 
-        // Integrazioni
-        ConfiguratorService emailMkt = svc("Integrazioni", "Email marketing",
-                "Integrazione Mailchimp / Brevo", 200, 10, null, null, 1);
-        configuratorServiceRepository.save(emailMkt);
+        ConfiguratorService booking = configuratorServiceRepository.save(
+                svc("Add-on", "Prenotazioni online", "Prenotazioni online",
+                        "Sistema di prenotazione integrato nel sito",
+                        "Sistema booking integrato",
+                        350, 19, "hospitality,fitness,food", null, null, null, 5));
 
-        // Manutenzione
-        ConfiguratorService uptime = svc("Manutenzione e supporto", "Monitoraggio uptime",
-                "Alert immediato in caso di downtime", 0, 9, null, null, 1);
-        ConfiguratorService aggiornamenti = svc("Manutenzione e supporto", "Aggiornamenti CMS",
-                "Aggiornamenti mensili contenuti inclusi", 0, 19, null, null, 2);
-        configuratorServiceRepository.saveAll(List.of(uptime, aggiornamenti));
+        ConfiguratorService shop = configuratorServiceRepository.save(
+                svc("Add-on", "Vendita online", "Vendita online",
+                        "Vendi i tuoi prodotti direttamente dal sito con pagamenti Stripe",
+                        "E-commerce Stripe",
+                        500, 29, "retail,food", null, null, null, 6));
 
-        // ── Pacchetti ──
+        ConfiguratorService members = configuratorServiceRepository.save(
+                svc("Add-on", "Area clienti", "Area riservata per i tuoi clienti",
+                        "I tuoi clienti accedono a documenti e informazioni riservate",
+                        "Login clienti + documenti",
+                        350, 20, "professional,fitness", null, null, null, 7));
 
-        ConfiguratorPackage vetrina = configuratorPackageRepository.save(
+        ConfiguratorService gdpr = configuratorServiceRepository.save(
+                svc("Add-on", "GDPR e Privacy", "Cookie e privacy GDPR",
+                        "Banner cookie e privacy policy conforme al GDPR",
+                        "Banner cookie + privacy policy",
+                        80, 0, null, null, null, null, 8));
+
+        ConfiguratorService training = configuratorServiceRepository.save(
+                svc("Add-on", "Formazione", "Formazione uso pannello",
+                        "2 ore di formazione per gestire il sito in autonomia",
+                        "2h formazione CMS",
+                        90, 0, null, null, null, null, 9));
+
+        ConfiguratorService migration = configuratorServiceRepository.save(
+                svc("Add-on", "Migrazione sito", "Ho già un sito da aggiornare",
+                        "Migrazione dei contenuti dal tuo sito attuale",
+                        "Migrazione contenuti",
+                        300, 0, null, null, null, null, 10));
+
+        // ── Servizi base inclusi nei pacchetti ──
+        ConfiguratorService sitoCms = configuratorServiceRepository.save(
+                svc("Base", "Sito con pannello di gestione", "Sito gestibile",
+                        "Aggiorna testi e immagini in autonomia",
+                        "Sito vetrina con CMS",
+                        0, 0, null, null, null, null, 1));
+
+        ConfiguratorService hostingDominio = configuratorServiceRepository.save(
+                svc("Base", "Hosting e dominio", "Hosting e dominio incluso",
+                        "Server, dominio e certificato SSL inclusi",
+                        "Hosting + dominio + SSL",
+                        0, 0, null, null, null, null, 2));
+
+        ConfiguratorService backupStats = configuratorServiceRepository.save(
+                svc("Base", "Backup e statistiche", "Backup e statistiche inclusi",
+                        "Backup automatico e dashboard visite",
+                        "Backup + statistiche accesso",
+                        0, 0, null, null, null, null, 3));
+
+        ConfiguratorService assistenza = configuratorServiceRepository.save(
+                svc("Base", "Assistenza", "Assistenza inclusa",
+                        "Supporto tecnico via email",
+                        "Assistenza email",
+                        0, 0, null, null, null, null, 4));
+
+        ConfiguratorService gestionale = configuratorServiceRepository.save(
+                svc("Base", "Gestionale attività", "Gestionale su misura",
+                        "Pannello gestionale personalizzato per la tua attività",
+                        "Gestionale custom",
+                        0, 0, null, null, null, null, 5));
+
+        ConfiguratorService areaClienti = configuratorServiceRepository.save(
+                svc("Base", "Area clienti inclusa", "Area clienti inclusa",
+                        "I tuoi clienti accedono a una sezione riservata",
+                        "Login clienti",
+                        0, 0, null, null, null, null, 6));
+
+        ConfiguratorService emailAziendale = configuratorServiceRepository.save(
+                svc("Base", "Email aziendale", "Email aziendale inclusa",
+                        "Casella email con il tuo dominio",
+                        "Email aziendale",
+                        0, 0, null, null, null, null, 7));
+
+        ConfiguratorService ecommerceBase = configuratorServiceRepository.save(
+                svc("Base", "Negozio online", "E-commerce incluso",
+                        "Catalogo prodotti, carrello e pagamenti Stripe",
+                        "E-commerce completo",
+                        0, 0, null, null, null, null, 8));
+
+        ConfiguratorService fatturazioneBase = configuratorServiceRepository.save(
+                svc("Base", "Fatturazione", "Fatturazione inclusa",
+                        "Generazione preventivi e fatture in PDF",
+                        "Fatturazione PDF",
+                        0, 0, null, null, null, null, 9));
+
+        // ── Pacchetti (tipi di attività) ──
+        Set<ConfiguratorService> starterBase = new HashSet<>(
+                Set.of(sitoCms, hostingDominio, backupStats, assistenza));
+
+        Set<ConfiguratorService> businessBase = new HashSet<>(
+                Set.of(sitoCms, hostingDominio, backupStats, assistenza,
+                        gestionale, areaClienti, emailAziendale));
+
+        configuratorPackageRepository.saveAll(List.of(
+
                 ConfiguratorPackage.builder()
-                        .name("Vetrina configurabile")
-                        .description("Sito web professionale con pagine e contenuti gestibili autonomamente")
-                        .setupAmount(300).monthlyAmount(49).sortOrder(1).enabled(true)
+                        .name("Negozio / attività commerciale")
+                        .description("Sito vetrina per il tuo negozio, con schede prodotto e informazioni")
+                        .activityType("retail")
+                        .setupAmount(0).monthlyAmount(79)
+                        .sortOrder(1).enabled(true).offerEnabled(false)
+                        .includedServices(starterBase)
+                        .build(),
+
+                ConfiguratorPackage.builder()
+                        .name("B&B / affittacamere / agriturismo")
+                        .description("Sito per strutture ricettive con galleria, disponibilità e prenotazioni")
+                        .activityType("hospitality")
+                        .setupAmount(800).monthlyAmount(129)
+                        .sortOrder(2).enabled(true).offerEnabled(false)
+                        .includedServices(businessBase)
+                        .build(),
+
+                ConfiguratorPackage.builder()
+                        .name("Palestra / studio sportivo")
+                        .description("Gestionale per corsi, abbonamenti e prenotazioni lezioni")
+                        .activityType("fitness")
+                        .setupAmount(800).monthlyAmount(129)
+                        .sortOrder(3).enabled(true).offerEnabled(false)
+                        .includedServices(businessBase)
+                        .build(),
+
+                ConfiguratorPackage.builder()
+                        .name("Ristorante / bar / pizzeria")
+                        .description("Sito con menu digitale, orari e prenotazioni tavoli")
+                        .activityType("food")
+                        .setupAmount(0).monthlyAmount(79)
+                        .sortOrder(4).enabled(true).offerEnabled(false)
+                        .includedServices(starterBase)
+                        .build(),
+
+                ConfiguratorPackage.builder()
+                        .name("Studio professionale")
+                        .description("Sito per professionisti con area clienti e documenti riservati")
+                        .activityType("professional")
+                        .setupAmount(0).monthlyAmount(79)
+                        .sortOrder(5).enabled(true).offerEnabled(false)
+                        .includedServices(starterBase)
+                        .build(),
+
+                ConfiguratorPackage.builder()
+                        .name("Voglio vendere online")
+                        .description("E-commerce completo con catalogo, carrello e pagamenti Stripe")
+                        .activityType("ecommerce")
+                        .setupAmount(1500).monthlyAmount(199)
+                        .sortOrder(6).enabled(true)
                         .offerEnabled(true)
                         .offerLabel("Offerta lancio")
-                        .offerDiscountSetup(100)
+                        .offerDiscountSetup(500)
                         .offerDiscountMonthly(0)
                         .includedServices(new HashSet<>(Set.of(
-                                vetrinaBase, hostingBase, sslBase, cmsBase,
-                                backupBase, statsBase)))
-                        .build());
+                                sitoCms, hostingDominio, backupStats, assistenza,
+                                ecommerceBase, emailAziendale)))
+                        .build(),
 
-        ConfiguratorPackage ecommerce = configuratorPackageRepository.save(
                 ConfiguratorPackage.builder()
-                        .name("E-commerce")
-                        .description("Negozio online completo con gestione prodotti, ordini e pagamenti")
-                        .setupAmount(900).monthlyAmount(99).sortOrder(2).enabled(true)
-                        .offerEnabled(false)
-                        .includedServices(new HashSet<>(Set.of(
-                                vetrinaBase, hostingBase, sslBase, cmsBase,
-                                emailBase, backupBase, statsBase,
-                                catalogoBase, carrelloBase, ordiniBase)))
-                        .build());
-
-        ConfiguratorPackage gestionale = configuratorPackageRepository.save(
-                ConfiguratorPackage.builder()
-                        .name("Gestionale completo")
-                        .description("Soluzione gestionale su misura con CRM, fatturazione e dashboard")
-                        .setupAmount(1500).monthlyAmount(149).sortOrder(3).enabled(true)
-                        .offerEnabled(false)
-                        .includedServices(new HashSet<>(Set.of(
-                                vetrinaBase, hostingBase, sslBase, cmsBase,
-                                emailBase, backupBase, statsBase, telefonoBase,
-                                crmBase2, fattBase, kpiBase)))
-                        .build());
-
-        // Servizi extra con dipendenza da pacchetto — ora che i pacchetti esistono
-        ConfiguratorService loginClienti = configuratorServiceRepository.save(
-                svc("Area riservata", "Login clienti",
-                        "Area riservata con accesso clienti", 400, 20, ecommerce, null, 1));
-        configuratorServiceRepository.save(
-                svc("Area riservata", "Documenti clienti",
-                        "Upload e download documenti", 200, 10, null, loginClienti, 2));
-
-        ConfiguratorService apiCustom = configuratorServiceRepository.save(
-                svc("Integrazioni", "API esterna custom",
-                        "Connessione a servizi terzi", 400, 19, gestionale, null, 2));
-        configuratorServiceRepository.save(
-                svc("Integrazioni", "Webhook e automazioni",
-                        "Trigger automatici tra servizi", 300, 19, null, apiCustom, 3));
-
-        ConfiguratorService supportoPrio = configuratorServiceRepository.save(
-                svc("Manutenzione e supporto", "Supporto prioritario",
-                        "Risposta entro 4h in orario lavorativo", 0, 29, ecommerce, null, 3));
+                        .name("Altro")
+                        .description("Non hai trovato il tuo settore? Partiamo da una base personalizzabile")
+                        .activityType("other")
+                        .setupAmount(0).monthlyAmount(79)
+                        .sortOrder(7).enabled(true).offerEnabled(false)
+                        .includedServices(starterBase)
+                        .build()
+        ));
     }
 
+    // metodo helper svc aggiornato con nuovi parametri
     private ConfiguratorService svc(
-            String category, String name, String description,
+            String category, String name, String clientLabel,
+            String clientDescription, String description,
             int setup, int monthly,
+            String visibleFor, String exclusiveGroup,
             ConfiguratorPackage requiresPkg,
             ConfiguratorService requiresSvc,
             int sortOrder) {
         return ConfiguratorService.builder()
-                .category(category).name(name).description(description)
+                .category(category).name(name)
+                .clientLabel(clientLabel)
+                .clientDescription(clientDescription)
+                .description(description)
                 .setupAmount(setup).monthlyAmount(monthly)
+                .visibleFor(visibleFor).exclusiveGroup(exclusiveGroup)
                 .requiresPackage(requiresPkg).requiresService(requiresSvc)
                 .sortOrder(sortOrder).enabled(true).build();
     }

@@ -38,11 +38,13 @@ public class ConfiguratorAppService {
                 .stream().map(this::toPackageDTO).toList();
     }
 
+    // createPackage — aggiungi activityType
     @Transactional
     public ConfiguratorPackageDTO createPackage(ConfiguratorPackageCreateDTO dto) {
         ConfiguratorPackage pkg = ConfiguratorPackage.builder()
                 .name(dto.name())
                 .description(dto.description())
+                .activityType(dto.activityType())
                 .setupAmount(dto.setupAmount())
                 .monthlyAmount(dto.monthlyAmount())
                 .sortOrder(dto.sortOrder())
@@ -56,12 +58,14 @@ public class ConfiguratorAppService {
         return toPackageDTO(packageRepository.save(pkg));
     }
 
+    // updatePackage — aggiungi activityType
     @Transactional
     public ConfiguratorPackageDTO updatePackage(Long id, ConfiguratorPackageCreateDTO dto) {
         ConfiguratorPackage pkg = packageRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pacchetto non trovato"));
         pkg.setName(dto.name());
         pkg.setDescription(dto.description());
+        pkg.setActivityType(dto.activityType());
         pkg.setSetupAmount(dto.setupAmount());
         pkg.setMonthlyAmount(dto.monthlyAmount());
         pkg.setSortOrder(dto.sortOrder());
@@ -114,13 +118,18 @@ public class ConfiguratorAppService {
         return new HashSet<>(serviceRepository.findAllById(ids));
     }
 
+    // buildService — aggiungi i nuovi campi
     private ConfiguratorService buildService(ConfiguratorService s,
                                              ConfiguratorServiceCreateDTO dto) {
         s.setCategory(dto.category());
         s.setName(dto.name());
+        s.setClientLabel(dto.clientLabel());
+        s.setClientDescription(dto.clientDescription());
         s.setDescription(dto.description());
         s.setSetupAmount(dto.setupAmount());
         s.setMonthlyAmount(dto.monthlyAmount());
+        s.setVisibleFor(dto.visibleFor());
+        s.setExclusiveGroup(dto.exclusiveGroup());
         s.setSortOrder(dto.sortOrder());
         s.setEnabled(dto.enabled());
         s.setRequiresPackage(dto.requiresPackageId() != null
@@ -132,9 +141,11 @@ public class ConfiguratorAppService {
         return s;
     }
 
+    // toPackageDTO
     private ConfiguratorPackageDTO toPackageDTO(ConfiguratorPackage p) {
         return new ConfiguratorPackageDTO(
                 p.getId(), p.getName(), p.getDescription(),
+                p.getActivityType(),
                 p.getSetupAmount(), p.getMonthlyAmount(),
                 p.getSortOrder(), p.isEnabled(),
                 p.getOfferLabel(), p.getOfferDiscountSetup(),
@@ -145,10 +156,14 @@ public class ConfiguratorAppService {
         );
     }
 
+    // toServiceDTO
     private ConfiguratorServiceDTO toServiceDTO(ConfiguratorService s) {
         return new ConfiguratorServiceDTO(
-                s.getId(), s.getCategory(), s.getName(), s.getDescription(),
+                s.getId(), s.getCategory(), s.getName(),
+                s.getClientLabel(), s.getClientDescription(),
+                s.getDescription(),
                 s.getSetupAmount(), s.getMonthlyAmount(),
+                s.getVisibleFor(), s.getExclusiveGroup(),
                 s.getRequiresPackage() != null ? s.getRequiresPackage().getId() : null,
                 s.getRequiresService() != null ? s.getRequiresService().getId() : null,
                 s.getSortOrder(), s.isEnabled()

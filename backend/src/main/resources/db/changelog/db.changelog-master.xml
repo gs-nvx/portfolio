@@ -9,5 +9,6 @@
     <include file="db/changelog/migrations/20250315-002-cms-blog.xml"/>
     <include file="db/changelog/migrations/20250316-003-configurator.xml"/>
     <include file="db/changelog/migrations/20250316-004-configurator-update.xml"/>
+    <include file="db/changelog/migrations/20250317-005-configurator-v2.xml"/>
 
 </databaseChangeLog>
