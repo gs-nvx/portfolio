@@ -30,12 +30,11 @@ export default function Navbar() {
         justify-between"
       >
         <Link to="/">
-          <span
-            className="text-sm text-white tracking-wide"
-            style={{ fontFamily: "'DM Mono', monospace" }}
-          >
-            GST <span style={{ color: "#34d5a8" }}>Code Lab</span>
-          </span>
+          <img
+            src="/svg-logo.svg"
+            alt="GST Code Lab"
+            style={{ height: "40px", width: "auto" }}
+          />
         </Link>
 
         {/* Desktop */}
@@ -55,22 +54,7 @@ export default function Navbar() {
               {item.label}
             </NavLink>
           ))}
-          <button
-            onClick={toggleLang}
-            className="transition"
-            style={{
-              fontSize: "11px",
-              color: "#6e9aaa",
-              border: "0.5px solid #1a2e3a",
-              padding: "4px 10px",
-              borderRadius: "6px",
-              background: "transparent",
-              fontFamily: "'DM Mono', monospace",
-              cursor: "pointer",
-            }}
-          >
-            {i18n.language === "it" ? "EN" : "IT"}
-          </button>
+
           <Link
             to="/contatti"
             className="transition"

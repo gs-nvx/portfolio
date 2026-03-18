@@ -7,6 +7,7 @@ export default function PageTransition({ children }) {
 
   useEffect(() => {
     setVisible(false);
+    window.scrollTo({ top: 0, behavior: "instant" });
     const t = setTimeout(() => setVisible(true), 50);
     return () => clearTimeout(t);
   }, [location.pathname]);

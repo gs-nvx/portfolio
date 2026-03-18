@@ -68,12 +68,31 @@ export default function PortfolioForm({ data, onChange }) {
               placeholder="Sito vetrina con catalogo prodotti"
               className="min-h-16"
             />
+            <Textarea
+              label="Testo di dettaglio (modale)"
+              value={c.testo_dettaglio || ""}
+              onChange={(e) => setCaso(i, "testo_dettaglio", e.target.value)}
+              placeholder="Descrizione estesa mostrata nel modale..."
+              className="min-h-20"
+            />
             <Input
               label="Tag"
               value={c.tag || ""}
               onChange={(e) => setCaso(i, "tag", e.target.value)}
               placeholder="Vetrina / E-commerce / Gestionale"
             />
+            <div className="flex flex-col gap-1">
+              <label className="text-sm text-gray-400">Stato</label>
+              <select
+                value={c.stato || "wip"}
+                onChange={(e) => setCaso(i, "stato", e.target.value)}
+                className="bg-gray-800 text-white rounded-lg px-4 py-2.5 text-sm
+                      border border-gray-700 outline-none focus:ring-2 focus:ring-teal-500"
+              >
+                <option value="online">Online</option>
+                <option value="wip">Work in progress</option>
+              </select>
+            </div>
             <MediaPicker
               label="Immagine"
               value={c.immagine || ""}

@@ -13,7 +13,7 @@ export default function ChiSonoPage() {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
-        style={{ background: "#f4f8f7" }}
+        style={{ background: "#ffffff" }}
       >
         <span
           style={{ fontFamily: "'DM Mono', monospace" }}
@@ -29,13 +29,13 @@ export default function ChiSonoPage() {
       <Helmet>
         <title>Chi sono — GST Code Lab</title>
       </Helmet>
-      <div style={{ background: "#f4f8f7" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#f2f5f3" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="max-w-2xl mx-auto">
             <SectionEyebrow label="Chi sono" />
             <h1
               className="text-4xl font-medium mb-6"
-              style={{ color: "#152820", letterSpacing: "-0.02em" }}
+              style={{ color: "#1c2e24", letterSpacing: "-0.02em" }}
             >
               {chiSono?.titolo || "Chi sono"}
             </h1>
@@ -49,7 +49,7 @@ export default function ChiSonoPage() {
             )}
             <p
               className="text-base leading-relaxed mb-8 whitespace-pre-line"
-              style={{ color: "#6b8f7d", fontWeight: 300 }}
+              style={{ color: "#5e7d68", fontWeight: 300 }}
             >
               {chiSono?.testo}
             </p>
@@ -57,11 +57,11 @@ export default function ChiSonoPage() {
               <div className="flex items-baseline gap-2 mb-6">
                 <span
                   className="text-3xl font-semibold"
-                  style={{ color: "#34d5a8", letterSpacing: "-0.02em" }}
+                  style={{ color: "#0f9e7e", letterSpacing: "-0.02em" }}
                 >
                   {chiSono.anni_esperienza}+
                 </span>
-                <span className="text-sm" style={{ color: "#6e9aaa" }}>
+                <span className="text-sm" style={{ color: "#0f9e7e" }}>
                   anni di esperienza
                 </span>
               </div>

@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useCmsSections } from "../hooks/useCms";
+import { useTranslation } from "react-i18next";
 
 export default function NotFoundPage() {
+  const { i18n } = useTranslation();
   const { loading } = useCmsSections(i18n.language);
 
   if (loading)

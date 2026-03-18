@@ -76,18 +76,18 @@ export default function ConfiguratorSection() {
 
   return (
     <section
-      style={{ background: "#ffffff", borderTop: "0.5px solid #dceae5" }}
+      style={{ background: "#f2f5f3", borderTop: "0.5px solid #dceae5" }}
     >
       <div className="max-w-5xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
           <SectionEyebrow label="Configura la tua soluzione" />
           <h2
             className="text-3xl font-medium"
-            style={{ color: "#152820", letterSpacing: "-0.02em" }}
+            style={{ color: "#1c2e24", letterSpacing: "-0.02em" }}
           >
             Costruisci il tuo pacchetto
           </h2>
-          <p className="mt-2 text-sm font-light" style={{ color: "#5a8a7a" }}>
+          <p className="mt-2 text-sm font-light" style={{ color: "#3d5c47" }}>
             Scegli il tipo di attività e personalizza con i servizi che ti
             servono
           </p>
@@ -101,7 +101,7 @@ export default function ConfiguratorSection() {
                 <div
                   className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium transition"
                   style={{
-                    background: step >= s ? "#0b7a5a" : "#f4f8f7",
+                    background: step >= s ? "#0f9e7e" : "#e8eee9",
                     color: step >= s ? "#fff" : "#8ab8a8",
                     border: step >= s ? "none" : "0.5px solid #dceae5",
                   }}

@@ -21,7 +21,7 @@ export default function BlogPage() {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
-        style={{ background: "#f4f8f7" }}
+        style={{ background: "#e8eee9" }}
       >
         <span
           style={{ fontFamily: "'DM Mono', monospace" }}
@@ -37,13 +37,13 @@ export default function BlogPage() {
       <Helmet>
         <title>Blog — GST Code Lab</title>
       </Helmet>
-      <div style={{ background: "#f4f8f7" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#e8eee9" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="text-center mb-12">
             <SectionEyebrow label="Blog" />
             <h1
               className="text-4xl font-medium"
-              style={{ color: "#152820", letterSpacing: "-0.02em" }}
+              style={{ color: "#1c2e24", letterSpacing: "-0.02em" }}
             >
               Articoli
             </h1>
@@ -56,7 +56,7 @@ export default function BlogPage() {
           {data?.content?.length === 0 && (
             <p
               className="text-center py-16 text-sm"
-              style={{ color: "#8ab8a8" }}
+              style={{ color: "#3d5c47" }}
             >
               Nessun articolo pubblicato.
             </p>
@@ -68,7 +68,7 @@ export default function BlogPage() {
                 onClick={() => setPage((p) => p - 1)}
                 className="text-sm transition disabled:opacity-30"
                 style={{
-                  color: "#5a8a7a",
+                  color: "#0f9e7e",
                   fontFamily: "'DM Mono', monospace",
                 }}
               >
@@ -85,7 +85,7 @@ export default function BlogPage() {
                 onClick={() => setPage((p) => p + 1)}
                 className="text-sm transition disabled:opacity-30"
                 style={{
-                  color: "#5a8a7a",
+                  color: "#0f9e7e",
                   fontFamily: "'DM Mono', monospace",
                 }}
               >

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { sendContactForm } from "../../../api/cmsApi";
+import ValidatedInput from "../ValidatedInput";
+import { useFormValidation } from "../../../hooks/useFormValidation";
 
 export default function ConfiguratorSummary({
   selectedPackage,
@@ -33,11 +35,19 @@ export default function ConfiguratorSummary({
   const totalSetup = baseSetup + extrasSetup;
   const totalMonthly = baseMonthly + extrasMonthly;
 
+  const RULES = [
+    { field: "nome", required: true },
+    { field: "azienda", required: true },
+    { field: "email", required: true, type: "email" },
+  ];
+  const { errors, validate, clearError } = useFormValidation(RULES);
+
   const set = (f) => (e) =>
     setForm((prev) => ({ ...prev, [f]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate(form)) return;
     setStatus("loading");
 
     const technicalData = {
@@ -73,7 +83,7 @@ Canone mensile: €${technicalData.totaleMensile}/mese
   return (
     <div
       className="rounded-xl p-5 sticky top-20"
-      style={{ background: "#f4f8f7", border: "0.5px solid #dceae5" }}
+      style={{ background: "#ffffff", border: "0.5px solid #dceae5" }}
     >
       <p
         className="text-xs uppercase tracking-widest mb-4"
@@ -109,23 +119,23 @@ Canone mensile: €${technicalData.totaleMensile}/mese
               </span>
             )}
             <div className="flex justify-between mt-2">
-              <span className="text-xs" style={{ color: "#8ab8a8" }}>
+              <span className="text-xs" style={{ color: "#5e7d68" }}>
                 Setup base
               </span>
               <span
                 className="text-xs font-medium"
-                style={{ color: "#152820" }}
+                style={{ color: "#8ab8a8" }}
               >
                 €{baseSetup}
               </span>
             </div>
             <div className="flex justify-between mt-1">
-              <span className="text-xs" style={{ color: "#8ab8a8" }}>
+              <span className="text-xs" style={{ color: "#5e7d68" }}>
                 Canone base
               </span>
               <span
                 className="text-xs font-medium"
-                style={{ color: "#0b7a5a" }}
+                style={{ color: "#0f9e7e" }}
               >
                 €{baseMonthly}/mese
               </span>
@@ -145,7 +155,7 @@ Canone mensile: €${technicalData.totaleMensile}/mese
                 >
                   <p
                     className="text-xs"
-                    style={{ color: "#5a8a7a", maxWidth: "60%" }}
+                    style={{ color: "#6b7d69", maxWidth: "60%" }}
                   >
                     {s.clientLabel || s.name}
                   </p>
@@ -156,7 +166,7 @@ Canone mensile: €${technicalData.totaleMensile}/mese
                       </p>
                     )}
                     {s.monthlyAmount > 0 && (
-                      <p className="text-xs" style={{ color: "#0b7a5a" }}>
+                      <p className="text-xs" style={{ color: "#0f9e7e" }}>
                         +€{s.monthlyAmount}/mese
                       </p>
                     )}
@@ -169,28 +179,28 @@ Canone mensile: €${technicalData.totaleMensile}/mese
           {/* Totali */}
           <div className="mb-4">
             <div className="flex justify-between items-center mb-1">
-              <span className="text-xs" style={{ color: "#8ab8a8" }}>
+              <span className="text-xs" style={{ color: "#5e7d68" }}>
                 Setup totale
               </span>
               <span
                 className="text-sm font-medium"
-                style={{ color: "#152820" }}
+                style={{ color: "#8ab8a8" }}
               >
                 €{totalSetup}
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-xs" style={{ color: "#8ab8a8" }}>
+              <span className="text-xs" style={{ color: "#5e7d68" }}>
                 Canone mensile
               </span>
               <span
                 className="text-xl font-semibold"
-                style={{ color: "#0b7a5a", letterSpacing: "-0.02em" }}
+                style={{ color: "#0f9e7e", letterSpacing: "-0.02em" }}
               >
                 €{totalMonthly}
                 <span
                   className="text-xs font-light ml-1"
-                  style={{ color: "#8ab8a8" }}
+                  style={{ color: "#0f9e7e" }}
                 >
                   /mese
                 </span>
@@ -203,44 +213,46 @@ Canone mensile: €${technicalData.totaleMensile}/mese
             <button
               onClick={() => setShowForm(true)}
               className="w-full py-3 rounded-lg text-sm font-medium transition"
-              style={{ background: "#0b7a5a", color: "#fff" }}
+              style={{
+                background: "#0f9e7e",
+                color: "#fff",
+                cursor: "pointer",
+              }}
             >
               Richiedi un preventivo
             </button>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="flex flex-col gap-3"
+            >
               {[
-                { f: "nome", p: "Nome *", t: "text", r: true },
-                { f: "azienda", p: "Nome attività *", t: "text", r: true },
-                { f: "email", p: "Email *", t: "email", r: true },
-                { f: "telefono", p: "Telefono", t: "tel", r: false },
-              ].map(({ f, p, t, r }) => (
-                <input
+                { f: "nome", p: "Nome *", t: "text" },
+                { f: "azienda", p: "Nome attività *", t: "text" },
+                { f: "email", p: "Email *", t: "email" },
+                { f: "telefono", p: "Telefono", t: "tel" },
+              ].map(({ f, p, t }) => (
+                <ValidatedInput
                   key={f}
                   type={t}
                   placeholder={p}
-                  required={r}
                   value={form[f]}
-                  onChange={set(f)}
-                  className="rounded-lg px-3 py-2 text-xs outline-none"
-                  style={{
-                    background: "#fff",
-                    border: "0.5px solid #dceae5",
-                    color: "#152820",
+                  onChange={(e) => {
+                    setForm((prev) => ({ ...prev, [f]: e.target.value }));
+                    clearError(f);
                   }}
+                  error={errors[f]}
                 />
               ))}
-              <textarea
-                placeholder="Messaggio (opzionale)"
+              <ValidatedInput
+                multiline
                 rows={3}
+                placeholder="Messaggio (opzionale)"
                 value={form.messaggio}
-                onChange={set("messaggio")}
-                className="rounded-lg px-3 py-2 text-xs outline-none resize-none"
-                style={{
-                  background: "#fff",
-                  border: "0.5px solid #dceae5",
-                  color: "#152820",
-                }}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, messaggio: e.target.value }))
+                }
               />
               {status === "ok" && (
                 <p className="text-xs" style={{ color: "#0b7a5a" }}>
@@ -261,6 +273,7 @@ Canone mensile: €${technicalData.totaleMensile}/mese
                     background: "#fff",
                     border: "0.5px solid #dceae5",
                     color: "#5a8a7a",
+                    cursor: "pointer",
                   }}
                 >
                   Annulla
@@ -269,7 +282,11 @@ Canone mensile: €${technicalData.totaleMensile}/mese
                   type="submit"
                   disabled={status === "loading"}
                   className="flex-1 py-2 rounded-lg text-xs font-medium transition disabled:opacity-50"
-                  style={{ background: "#0b7a5a", color: "#fff" }}
+                  style={{
+                    background: "#0b7a5a",
+                    color: "#fff",
+                    cursor: "pointer",
+                  }}
                 >
                   {status === "loading" ? "..." : "Invia"}
                 </button>

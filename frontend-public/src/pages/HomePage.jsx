@@ -4,24 +4,15 @@ import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import SectionWrapper from "../components/ui/SectionWrapper";
 import SectionEyebrow from "../components/ui/SectionEyebrow";
-import BlogCard from "../components/ui/BlogCard";
+import PortfolioCard from "../components/ui/PortfolioCard";
 import ContactForm from "../components/ui/ContactForm";
 import { useCmsSections } from "../hooks/useCms";
-import { getBlogPosts } from "../api/blogApi";
 
 export default function HomePage() {
   const { t, i18n } = useTranslation();
   const { getContent, loading } = useCmsSections(i18n.language);
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    getBlogPosts(i18n.language, 0, 3).then((r) =>
-      setPosts(r.data.content || []),
-    );
-  }, [i18n.language]);
 
   const hero = getContent("hero");
-  const servizi = getContent("servizi");
   const portfolio = getContent("portfolio");
   const testimonianze = getContent("testimonianze");
 
@@ -153,185 +144,106 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SERVIZI ── sfondo chiaro */}
-      {servizi?.pacchetti?.length > 0 && (
-        <section
-          style={{
-            background: "#f4f8f7",
-            borderTop: "0.5px solid #dceae5",
-            borderBottom: "0.5px solid #dceae5",
-          }}
-        >
-          <SectionWrapper>
-            <div className="text-center mb-10">
-              <SectionEyebrow label="Servizi" />
-              <h2
-                className="text-3xl font-medium tracking-tight"
-                style={{ color: "#152820", letterSpacing: "-0.02em" }}
-              >
-                {servizi.titolo_sezione}
-              </h2>
-              <p
-                className="mt-2 text-sm font-light"
-                style={{ color: "#8ab8a8" }}
-              >
-                {servizi.sottotitolo_sezione}
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {servizi.pacchetti.map((p, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl p-6 flex flex-col gap-3"
-                  style={{
-                    background: "#ffffff",
-                    border: p.evidenziato
-                      ? "1px solid #0b7a5a"
-                      : "0.5px solid #dceae5",
-                  }}
-                >
-                  {p.evidenziato && (
-                    <span
-                      className="text-[10px] px-3 py-1 rounded-full w-fit"
-                      style={{
-                        background: "#e8f5f0",
-                        color: "#0b7a5a",
-                        fontFamily: "'DM Mono', monospace",
-                      }}
-                    >
-                      Più scelto
-                    </span>
-                  )}
-                  <h3
-                    className="font-medium text-lg"
-                    style={{ color: "#152820" }}
-                  >
-                    {p.nome}
-                  </h3>
-                  <div
-                    className="text-3xl font-semibold"
-                    style={{ color: "#0b7a5a", letterSpacing: "-0.02em" }}
-                  >
-                    €{p.prezzo_mese}
-                    <span
-                      className="text-sm font-light ml-1"
-                      style={{ color: "#8ab8a8" }}
-                    >
-                      /mese
-                    </span>
-                  </div>
-                  <p className="text-xs" style={{ color: "#8ab8a8" }}>
-                    Setup €{p.prezzo_setup} una tantum
-                  </p>
-                  <ul
-                    className="flex flex-col gap-1.5 pt-2"
-                    style={{ borderTop: "0.5px solid #dceae5" }}
-                  >
-                    {p.features?.map((f, j) => (
-                      <li
-                        key={j}
-                        className="text-sm flex gap-2"
-                        style={{ color: "#5a8a7a" }}
-                      >
-                        <span style={{ color: "#0b7a5a" }}>↗</span> {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-8">
-              <Link
-                to="/servizi"
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: "11px",
-                  color: "#0b7a5a",
-                  letterSpacing: "0.05em",
-                }}
-              >
-                Tutti i dettagli →
-              </Link>
-            </div>
-          </SectionWrapper>
-        </section>
-      )}
+      {/* Sezione — Come funziona */}
+      <section
+        style={{ background: "#f2f5f3", borderBottom: "0.5px solid #dceae5" }}
+      >
+        <SectionWrapper>
+          <div className="text-center mb-12">
+            <SectionEyebrow label="Come funziona" />
+            <h2
+              className="text-3xl font-medium"
+              style={{ color: "#1c2e24", letterSpacing: "-0.02em" }}
+            >
+              Dal primo contatto al prodotto finito
+            </h2>
+            <p className="mt-2 text-sm font-light" style={{ color: "#3d5c47" }}>
+              Un processo semplice e trasparente, pensato per tenerti sempre
+              informato
+            </p>
+          </div>
 
-      {/* ── PORTFOLIO ── sfondo chiaro */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                num: "01",
+                titolo: "Esplora e configura",
+                testo:
+                  "Pensa a cosa ti serve. Il nostro configuratore interattivo ti guida nella scoperta dei servizi più adatti alla tua attività e ti fornisce una stima indicativa dei costi, senza impegno.",
+              },
+              {
+                num: "02",
+                titolo: "Richiedi un preventivo",
+                testo:
+                  "Invia la tua configurazione direttamente dal tool oppure contattami dalla sezione Contatti descrivendomi il tuo progetto. Ti rispondo entro 24 ore con una proposta concreta.",
+              },
+              {
+                num: "03",
+                titolo: "Definiamo la soluzione",
+                testo:
+                  "Ci sentiamo per approfondire i dettagli, chiarire ogni dubbio e costruire insieme la soluzione più adatta. Solo a questo punto fissiamo il preventivo definitivo, senza sorprese.",
+              },
+              {
+                num: "04",
+                titolo: "Sviluppiamo insieme",
+                testo:
+                  "Inizia lo sviluppo. Ci confrontiamo con incontri periodici per assicurarci che il prodotto rispecchi le tue aspettative. Non sparisco dopo la consegna — resto il tuo riferimento tecnico.",
+              },
+            ].map((step, i) => (
+              <div key={i} className="flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="text-3xl font-semibold"
+                    style={{
+                      color: "#0f9e7e",
+                      opacity: "0.4",
+                      fontFamily: "'DM Mono', monospace",
+                      letterSpacing: "-0.03em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {step.num}
+                  </span>
+                  <div
+                    className="flex-1 h-px"
+                    style={{ background: "#d4d9d2" }}
+                  />
+                </div>
+                <h3
+                  className="text-base font-medium"
+                  style={{ color: "#1c2e24" }}
+                >
+                  {step.titolo}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed font-light"
+                  style={{ color: "#5e7d68" }}
+                >
+                  {step.testo}
+                </p>
+              </div>
+            ))}
+          </div>
+        </SectionWrapper>
+      </section>
+
       {portfolio?.casi_studio?.length > 0 && (
         <section
-          style={{
-            background: "#ffffff",
-            borderBottom: "0.5px solid #dceae5",
-          }}
+          style={{ background: "#e8eee9", borderBottom: "0.5px solid #dceae5" }}
         >
           <SectionWrapper>
             <div className="text-center mb-10">
-              <SectionEyebrow label="Portfolio" dark />
+              <SectionEyebrow label="Portfolio" />
               <h2
-                className="text-3xl font-medium tracking-tight"
-                style={{ color: "#152820", letterSpacing: "-0.02em" }}
+                className="text-3xl font-medium"
+                style={{ color: "#1c2e24", letterSpacing: "-0.02em" }}
               >
                 {portfolio.titolo_sezione}
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {portfolio.casi_studio.slice(0, 3).map((c, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl overflow-hidden group"
-                  style={{
-                    background: "#f4f8f7",
-                    border: "0.5px solid #dceae5",
-                  }}
-                >
-                  {c.immagine ? (
-                    <img
-                      src={c.immagine}
-                      alt={c.titolo}
-                      className="w-full h-44 object-cover
-                          group-hover:scale-105 transition duration-500"
-                    />
-                  ) : (
-                    <div
-                      className="w-full h-44 flex items-center justify-center"
-                      style={{
-                        background: "linear-gradient(135deg,#0f2a1e,#1a3d2b)",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: "'DM Mono', monospace",
-                          fontSize: "10px",
-                          color: "##8ab8a8",
-                          opacity: 0.4,
-                        }}
-                      >
-                        {c.tag}
-                      </span>
-                    </div>
-                  )}
-                  <div className="p-5">
-                    <span
-                      className="text-[10px] px-2 py-1 rounded-full"
-                      style={{ background: "#8ab8a8", color: "#152820" }}
-                    >
-                      {c.tag}
-                    </span>
-                    <h3
-                      className="font-medium mt-3 mb-1"
-                      style={{ color: "#152820" }}
-                    >
-                      {c.titolo}
-                    </h3>
-                    <p
-                      className="text-sm leading-relaxed"
-                      style={{ color: "#5a8a7a" }}
-                    >
-                      {c.descrizione}
-                    </p>
-                  </div>
-                </div>
+                <PortfolioCard key={i} caso={c} showLink={false} />
               ))}
             </div>
             <div className="text-center mt-8">
@@ -340,7 +252,7 @@ export default function HomePage() {
                 style={{
                   fontFamily: "'DM Mono', monospace",
                   fontSize: "11px",
-                  color: "#34d5a8",
+                  color: "#0f9e7e",
                   letterSpacing: "0.05em",
                 }}
               >
@@ -351,54 +263,17 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── BLOG ── sfondo chiaro */}
-      {posts.length > 0 && (
-        <section
-          style={{ background: "#f4f8f7", borderBottom: "0.5px solid #dceae5" }}
-        >
-          <SectionWrapper>
-            <div className="text-center mb-10">
-              <SectionEyebrow label="Blog" />
-              <h2
-                className="text-3xl font-medium tracking-tight"
-                style={{ color: "#152820", letterSpacing: "-0.02em" }}
-              >
-                Articoli recenti
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {posts.map((post) => (
-                <BlogCard key={post.id} post={post} />
-              ))}
-            </div>
-            <div className="text-center mt-8">
-              <Link
-                to="/blog"
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: "11px",
-                  color: "#0b7a5a",
-                  letterSpacing: "0.05em",
-                }}
-              >
-                Tutti gli articoli →
-              </Link>
-            </div>
-          </SectionWrapper>
-        </section>
-      )}
-
       {/* ── TESTIMONIANZE ── sfondo chiaro */}
       {testimonianze?.testimonianze?.length > 0 && (
         <section
-          style={{ background: "#ffffff", borderBottom: "0.5px solid #dceae5" }}
+          style={{ background: "#f2f5f3", borderBottom: "0.5px solid #dceae5" }}
         >
           <SectionWrapper>
             <div className="text-center mb-10">
               <SectionEyebrow label="Testimonianze" />
               <h2
                 className="text-3xl font-medium tracking-tight"
-                style={{ color: "#152820", letterSpacing: "-0.02em" }}
+                style={{ color: "#1c2e24", letterSpacing: "-0.02em" }}
               >
                 {testimonianze.titolo_sezione}
               </h2>
@@ -410,21 +285,21 @@ export default function HomePage() {
                   className="rounded-xl p-6"
                   style={{
                     background: "#ffffff",
-                    border: "0.5px solid #dceae5",
+                    border: "0.5px solid #d0dcd2",
                   }}
                 >
-                  <div className="text-sm mb-3" style={{ color: "#0b7a5a" }}>
+                  <div className="text-sm mb-3" style={{ color: "#0f9e7e" }}>
                     {"★".repeat(t.valutazione || 5)}
                   </div>
                   <p
                     className="text-sm leading-relaxed italic mb-4"
-                    style={{ color: "#5a8a7a" }}
+                    style={{ color: "#5e7d68" }}
                   >
                     "{t.testo}"
                   </p>
                   <p
                     className="text-sm font-medium"
-                    style={{ color: "#152820" }}
+                    style={{ color: "#1c2e24" }}
                   >
                     {t.nome_cliente}
                   </p>
@@ -432,7 +307,7 @@ export default function HomePage() {
                     style={{
                       fontFamily: "'DM Mono', monospace",
                       fontSize: "10px",
-                      color: "#0b7a5a",
+                      color: "#5e7d68",
                     }}
                   >
                     {t.azienda}
@@ -445,20 +320,20 @@ export default function HomePage() {
       )}
 
       {/* ── FORM CONTATTI ── sfondo chiaro */}
-      <section style={{ background: "#f4f8f7" }}>
+      <section style={{ background: "#e8eee9" }}>
         <SectionWrapper>
           <div className="max-w-xl mx-auto">
             <div className="text-center mb-8">
               <SectionEyebrow label="Contatti" />
               <h2
                 className="text-3xl font-medium tracking-tight"
-                style={{ color: "#152820", letterSpacing: "-0.02em" }}
+                style={{ color: "#1c2e24", letterSpacing: "-0.02em" }}
               >
                 {t("contatti.titolo")}
               </h2>
               <p
                 className="mt-2 text-sm font-light"
-                style={{ color: "#8ab8a8" }}
+                style={{ color: "#3d5c47" }}
               >
                 {t("contatti.sottotitolo")}
               </p>

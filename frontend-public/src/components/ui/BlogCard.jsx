@@ -7,10 +7,10 @@ export default function BlogCard({ post }) {
       className="rounded-xl p-5 flex flex-col gap-3 group transition"
       style={{
         background: "#ffffff",
-        border: "0.5px solid #dceae5",
+        border: "0.5px solid #d0dcd2",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#0b7a5a")}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#dceae5")}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#0f9e7e")}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#d0dcd2")}
     >
       {post.seoOgImage && (
         <img
@@ -22,7 +22,7 @@ export default function BlogCard({ post }) {
       {post.category && (
         <span
           className="text-xs px-2 py-1 rounded-full w-fit"
-          style={{ color: "#0b7a5a", background: "#e8f5f0" }}
+          style={{ color: "#0f9e7e", background: "#e8f5f0" }}
         >
           {post.category}
         </span>

@@ -2,7 +2,7 @@ export default function IncludedServices({ services, onNext }) {
   return (
     <div
       className="rounded-xl p-5"
-      style={{ background: "#f4f8f7", border: "0.5px solid #dceae5" }}
+      style={{ background: "#ffffff", border: "0.5px solid #dceae5" }}
     >
       <div className="flex items-center justify-between mb-4">
         <p
@@ -14,7 +14,11 @@ export default function IncludedServices({ services, onNext }) {
         <button
           onClick={onNext}
           className="text-xs font-medium transition"
-          style={{ color: "#0b7a5a", fontFamily: "'DM Mono', monospace" }}
+          style={{
+            color: "#0f9e7e",
+            fontFamily: "'DM Mono', monospace",
+            cursor: "pointer",
+          }}
         >
           Aggiungi extra →
         </button>

@@ -3,16 +3,17 @@ import { useTranslation } from "react-i18next";
 import SectionWrapper from "../components/ui/SectionWrapper";
 import SectionEyebrow from "../components/ui/SectionEyebrow";
 import ContactForm from "../components/ui/ContactForm";
+import { useCmsSections } from "../hooks/useCms";
 
 export default function ContattiPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { loading } = useCmsSections(i18n.language);
 
   if (loading)
     return (
       <div
         className="min-h-screen flex items-center justify-center"
-        style={{ background: "#ffffff" }}
+        style={{ background: "#f2f5f3" }}
       >
         <span
           style={{ fontFamily: "'DM Mono', monospace" }}
@@ -28,7 +29,7 @@ export default function ContattiPage() {
       <Helmet>
         <title>Contatti — GST Code Lab</title>
       </Helmet>
-      <div style={{ background: "#ffffff" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#f2f5f3" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="max-w-xl mx-auto">
             <div className="text-center mb-10">

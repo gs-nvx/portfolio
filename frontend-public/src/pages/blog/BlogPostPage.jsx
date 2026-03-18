@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import SectionWrapper from "../../components/ui/SectionWrapper";
@@ -23,7 +23,7 @@ export default function BlogPostPage() {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
-        style={{ background: "#ffffff" }}
+        style={{ background: "#e8eee9" }}
       >
         <span
           style={{ fontFamily: "'DM Mono', monospace" }}
@@ -43,21 +43,21 @@ export default function BlogPostPage() {
           <meta property="og:image" content={post.seoOgImage} />
         )}
       </Helmet>
-      <div style={{ background: "#ffffff" }} className="pt-14 min-h-screen">
+      <div style={{ background: "#e8eee9" }} className="pt-14 min-h-screen">
         <SectionWrapper>
           <div className="max-w-2xl mx-auto">
             <div className="mb-8">
               {post?.category && (
                 <span
                   className="text-[10px] px-3 py-1 rounded-full"
-                  style={{ background: "#e8f5f0", color: "#0b7a5a" }}
+                  style={{ background: "#0f9e7e", color: "#ffffff" }}
                 >
                   {post.category}
                 </span>
               )}
               <h1
                 className="text-3xl font-medium mt-4 mb-3 leading-snug"
-                style={{ color: "#152820", letterSpacing: "-0.02em" }}
+                style={{ color: "#1c2e24", letterSpacing: "-0.02em" }}
               >
                 {post?.title}
               </h1>
@@ -87,12 +87,25 @@ export default function BlogPostPage() {
             )}
             <div
               className="text-base leading-relaxed whitespace-pre-line"
-              style={{ color: "#5a8a7a", fontWeight: 300 }}
+              style={{ color: "#5e7d68", fontWeight: 300 }}
             >
               {post?.body}
             </div>
           </div>
         </SectionWrapper>
+        <div className="max-w-2xl mx-auto px-6 pt-8">
+          <Link
+            to="/blog"
+            style={{
+              color: "#0f9e7e",
+              fontFamily: "'DM Mono', monospace",
+              fontSize: "12px",
+              textDecoration: "none",
+            }}
+          >
+            ← Blog
+          </Link>
+        </div>
       </div>
     </>
   );
