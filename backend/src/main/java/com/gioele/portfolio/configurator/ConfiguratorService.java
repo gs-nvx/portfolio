@@ -12,11 +12,14 @@ public class ConfiguratorService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 200)
+    private String name;
+
     @Column(nullable = false, length = 100)
     private String category;
 
-    @Column(nullable = false, length = 200)
-    private String name;
+    @Column(name = "service_type",nullable = false, length = 100)
+    private String serviceType;
 
     @Column(length = 500)
     private String description;

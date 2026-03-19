@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="20250315-002" author="gioele">
+
+        <!-- ═══════════════════════════════════════════════════════
+             ADMIN USER
+        ═══════════════════════════════════════════════════════ -->
+
+        <insert tableName="admin_users">
+            <column name="username" value="admin"/>
+            <!-- BCrypt hash di "changeme" — cambiare alla prima produzione -->
+            <column name="password_hash" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="created_at" valueDate="2025-03-15T00:00:00"/>
+        </insert>
+
+        <!-- ═══════════════════════════════════════════════════════
+             CMS SECTIONS
+        ═══════════════════════════════════════════════════════ -->
+
+        <insert tableName="cms_sections">
+            <column name="section_key" value="hero"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="sort_order" valueNumeric="1"/>
+            <column name="locale" value="it"/>
+            <column name="updated_at" valueDate="2025-03-15T00:00:00"/>
+            <column name="content_json" value='{"titolo":"Sviluppo web per PMI","sottotitolo":"Siti e gestionali su misura per la tua azienda","testo_cta":"Scopri i servizi","link_cta":"/servizi","immagine":""}'/>
+        </insert>
+
+        <insert tableName="cms_sections">
+            <column name="section_key" value="servizi"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="sort_order" valueNumeric="2"/>
+            <column name="locale" value="it"/>
+            <column name="updated_at" valueDate="2025-03-15T00:00:00"/>
+            <column name="content_json" value='{"titolo_sezione":"Pacchetti e prezzi","sottotitolo_sezione":"Soluzioni su misura per il tuo progetto"}'/>
+        </insert>
+
+        <insert tableName="cms_sections">
+            <column name="section_key" value="portfolio"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="sort_order" valueNumeric="3"/>
+            <column name="locale" value="it"/>
+            <column name="updated_at" valueDate="2025-03-15T00:00:00"/>
+            <column name="content_json" value='{"titolo_sezione":"Portfolio","casi_studio":[]}'/>
+        </insert>
+
+        <insert tableName="cms_sections">
+            <column name="section_key" value="chi_sono"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="sort_order" valueNumeric="4"/>
+            <column name="locale" value="it"/>
+            <column name="updated_at" valueDate="2025-03-15T00:00:00"/>
+            <column name="content_json" value='{"titolo":"Chi sono","testo":"Inserisci qui la tua descrizione.","immagine":"","anni_esperienza":3,"tecnologie":["Java","Spring Boot","React","MySQL"]}'/>
+        </insert>
+
+        <insert tableName="cms_sections">
+            <column name="section_key" value="testimonianze"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="sort_order" valueNumeric="5"/>
+            <column name="locale" value="it"/>
+            <column name="updated_at" valueDate="2025-03-15T00:00:00"/>
+            <column name="content_json" value='{"titolo_sezione":"Cosa dicono i clienti","testimonianze":[]}'/>
+        </insert>
+
+        <!-- ═══════════════════════════════════════════════════════
+             CONFIGURATOR SERVICES — BASE (5)
+        ═══════════════════════════════════════════════════════ -->
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Sito con pannello di gestione"/>
+            <column name="category" value="Base"/>
+            <column name="service_type" value="Base"/>
+            <column name="description" value="Sito vetrina con CMS"/>
+            <column name="client_label" value="Sito vetrina gestibile"/>
+            <column name="client_description" value="Aggiorna testi e immagini in autonomia"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Assistenza"/>
+            <column name="category" value="Base"/>
+            <column name="service_type" value="Base"/>
+            <column name="description" value="Assistenza email inclusa"/>
+            <column name="client_label" value="Assistenza email"/>
+            <column name="client_description" value="Supporto tecnico via email incluso nel canone"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="2"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Backup e statistiche"/>
+            <column name="category" value="Base"/>
+            <column name="service_type" value="Base"/>
+            <column name="description" value="Backup automatico giornaliero 30gg + statistiche accesso"/>
+            <column name="client_label" value="Backup + statistiche accesso"/>
+            <column name="client_description" value="Backup automatico e dashboard visite"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="3"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Hosting e dominio"/>
+            <column name="category" value="Base"/>
+            <column name="service_type" value="Base"/>
+            <column name="description" value="Hosting + dominio .it o .com + SSL automatico"/>
+            <column name="client_label" value="Hosting + dominio + SSL"/>
+            <column name="client_description" value="Server dedicato con dominio e certificato SSL inclusi"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="4"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="GDPR e Privacy"/>
+            <column name="category" value="Base"/>
+            <column name="service_type" value="Base"/>
+            <column name="description" value="Banner cookie conforme GDPR + privacy policy"/>
+            <column name="client_label" value="Cookie e privacy GDPR"/>
+            <column name="client_description" value="Banner cookie e informativa privacy conforme alla normativa europea"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="5"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- ═══════════════════════════════════════════════════════
+             CONFIGURATOR SERVICES — ADD-ON (26)
+        ═══════════════════════════════════════════════════════ -->
+
+        <!-- Sito pubblico -->
+        <insert tableName="configurator_services">
+            <column name="name" value="Blog integrato"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Sito pubblico"/>
+            <column name="description" value="Sezione notizie e articoli con editor visuale"/>
+            <column name="client_label" value="Sezione notizie e articoli"/>
+            <column name="client_description" value="Pubblica notizie aggiornamenti e articoli direttamente dal pannello"/>
+            <column name="setup_amount" valueNumeric="150"/>
+            <column name="monthly_amount" valueNumeric="10"/>
+            <column name="sort_order" valueNumeric="6"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Multilingua EN"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Sito pubblico"/>
+            <column name="description" value="Versione inglese del sito con gestione contenuti separata"/>
+            <column name="client_label" value="Sito anche in inglese"/>
+            <column name="client_description" value="Versione inglese completa per raggiungere clienti internazionali"/>
+            <column name="setup_amount" valueNumeric="200"/>
+            <column name="monthly_amount" valueNumeric="10"/>
+            <column name="sort_order" valueNumeric="7"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Pagine aggiuntive"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Sito pubblico"/>
+            <column name="description" value="Fino a 10 pagine totali (oltre le 5 incluse nel pacchetto)"/>
+            <column name="client_label" value="Pagine aggiuntive (fino a 10)"/>
+            <column name="client_description" value="Espandi il sito con pagine dedicate a servizi prodotti o categorie"/>
+            <column name="setup_amount" valueNumeric="100"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="8"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Form contatti avanzato"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Sito pubblico"/>
+            <column name="description" value="Form con campi personalizzabili notifiche email e protezione anti-spam"/>
+            <column name="client_label" value="Form contatti personalizzato"/>
+            <column name="client_description" value="Crea form su misura per preventivi candidature o richieste specifiche"/>
+            <column name="setup_amount" valueNumeric="120"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="9"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- SEO e ottimizzazione -->
+        <insert tableName="configurator_services">
+            <column name="name" value="SEO base"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="SEO e ottimizzazione"/>
+            <column name="description" value="Configurazione meta tag sitemap XML e collegamento Google Search Console"/>
+            <column name="client_label" value="Fatti trovare su Google"/>
+            <column name="client_description" value="Le basi per apparire nei risultati di ricerca di Google"/>
+            <column name="setup_amount" valueNumeric="90"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="exclusive_group" value="seo"/>
+            <column name="sort_order" valueNumeric="10"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="SEO avanzato"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="SEO e ottimizzazione"/>
+            <column name="description" value="Ottimizzazione contenuti analisi keyword e report mensile di posizionamento"/>
+            <column name="client_label" value="Posizionamento avanzato su Google"/>
+            <column name="client_description" value="Strategia SEO continuativa con report mensile e ottimizzazione progressiva"/>
+            <column name="setup_amount" valueNumeric="250"/>
+            <column name="monthly_amount" valueNumeric="29"/>
+            <column name="exclusive_group" value="seo"/>
+            <column name="sort_order" valueNumeric="11"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Google Analytics"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="SEO e ottimizzazione"/>
+            <column name="description" value="Installazione e configurazione GA4 con eventi personalizzati"/>
+            <column name="client_label" value="Analisi avanzata dei visitatori"/>
+            <column name="client_description" value="Scopri da dove arrivano i tuoi clienti e come si comportano sul sito"/>
+            <column name="setup_amount" valueNumeric="60"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="12"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- Area riservata -->
+        <insert tableName="configurator_services">
+            <column name="name" value="Area clienti"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Area riservata"/>
+            <column name="description" value="Login clienti con area riservata upload e download documenti"/>
+            <column name="client_label" value="Area riservata per i tuoi clienti"/>
+            <column name="client_description" value="I tuoi clienti accedono a documenti preventivi e comunicazioni in modo sicuro"/>
+            <column name="setup_amount" valueNumeric="350"/>
+            <column name="monthly_amount" valueNumeric="20"/>
+            <column name="sort_order" valueNumeric="13"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- Gestionale -->
+        <insert tableName="configurator_services">
+            <column name="name" value="Prenotazioni online"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Gestionale"/>
+            <column name="description" value="Sistema di prenotazione con calendario disponibilita e notifiche automatiche"/>
+            <column name="client_label" value="Prenotazioni online"/>
+            <column name="client_description" value="I tuoi clienti prenotano direttamente dal sito tu gestisci tutto dal pannello"/>
+            <column name="setup_amount" valueNumeric="400"/>
+            <column name="monthly_amount" valueNumeric="19"/>
+            <column name="sort_order" valueNumeric="14"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Gestionale attività"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Gestionale"/>
+            <column name="description" value="Gestionale custom per la tua attivita (corsi abbonamenti turni o servizi)"/>
+            <column name="client_label" value="Gestionale per la tua attivita"/>
+            <column name="client_description" value="Gestisci corsi abbonamenti clienti e appuntamenti da un unico pannello"/>
+            <column name="setup_amount" valueNumeric="600"/>
+            <column name="monthly_amount" valueNumeric="39"/>
+            <column name="sort_order" valueNumeric="15"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="CRM clienti"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Gestionale"/>
+            <column name="description" value="Anagrafica clienti storico interazioni note e gestione contatti"/>
+            <column name="client_label" value="Gestione clienti e contatti"/>
+            <column name="client_description" value="Tieni traccia di ogni cliente con storico note e informazioni di contatto"/>
+            <column name="setup_amount" valueNumeric="400"/>
+            <column name="monthly_amount" valueNumeric="29"/>
+            <column name="sort_order" valueNumeric="16"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Dashboard KPI"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Gestionale"/>
+            <column name="description" value="Grafici e metriche di business personalizzabili per la tua attivita"/>
+            <column name="client_label" value="Dashboard con i numeri della tua attivita"/>
+            <column name="client_description" value="Visualizza in tempo reale le metriche piu importanti per il tuo business"/>
+            <column name="setup_amount" valueNumeric="300"/>
+            <column name="monthly_amount" valueNumeric="19"/>
+            <column name="sort_order" valueNumeric="17"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Fatturazione"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Gestionale"/>
+            <column name="description" value="Generazione preventivi e fatture in PDF con template personalizzabile"/>
+            <column name="client_label" value="Preventivi e fatture PDF"/>
+            <column name="client_description" value="Crea e invia preventivi e fatture professionali direttamente dal pannello"/>
+            <column name="setup_amount" valueNumeric="300"/>
+            <column name="monthly_amount" valueNumeric="15"/>
+            <column name="sort_order" valueNumeric="18"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- E-commerce -->
+        <insert tableName="configurator_services">
+            <column name="name" value="Catalogo prodotti"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="E-commerce"/>
+            <column name="description" value="Catalogo prodotti con categorie varianti e filtri di ricerca"/>
+            <column name="client_label" value="Catalogo prodotti online"/>
+            <column name="client_description" value="Mostra i tuoi prodotti con foto descrizioni prezzi e varianti"/>
+            <column name="setup_amount" valueNumeric="300"/>
+            <column name="monthly_amount" valueNumeric="19"/>
+            <column name="sort_order" valueNumeric="19"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Carrello e checkout"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="E-commerce"/>
+            <column name="description" value="Carrello acquisti e pagamenti online via Stripe"/>
+            <column name="client_label" value="Vendita online con pagamenti Stripe"/>
+            <column name="client_description" value="I tuoi clienti acquistano direttamente dal sito con pagamento sicuro"/>
+            <column name="setup_amount" valueNumeric="500"/>
+            <column name="monthly_amount" valueNumeric="29"/>
+            <column name="sort_order" valueNumeric="20"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Gestione ordini"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="E-commerce"/>
+            <column name="description" value="Dashboard ordini con stati spedizioni e notifiche automatiche al cliente"/>
+            <column name="client_label" value="Gestione ordini e spedizioni"/>
+            <column name="client_description" value="Tieni traccia di ogni ordine aggiorna gli stati e notifica automaticamente i clienti"/>
+            <column name="setup_amount" valueNumeric="300"/>
+            <column name="monthly_amount" valueNumeric="19"/>
+            <column name="sort_order" valueNumeric="21"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- Integrazioni -->
+        <insert tableName="configurator_services">
+            <column name="name" value="Integrazione email marketing"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Integrazioni"/>
+            <column name="description" value="Connessione con Mailchimp o Brevo per sincronizzazione contatti e automazioni"/>
+            <column name="client_label" value="Email marketing integrato"/>
+            <column name="client_description" value="Sincronizza i contatti del sito con il tuo strumento di email marketing"/>
+            <column name="setup_amount" valueNumeric="200"/>
+            <column name="monthly_amount" valueNumeric="10"/>
+            <column name="sort_order" valueNumeric="22"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="API esterna custom"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Integrazioni"/>
+            <column name="description" value="Connessione a servizi terzi tramite API REST con autenticazione e mapping dati"/>
+            <column name="client_label" value="Connessione a servizi esterni"/>
+            <column name="client_description" value="Collega il tuo sito a gestionali software o piattaforme che gia utilizzi"/>
+            <column name="setup_amount" valueNumeric="400"/>
+            <column name="monthly_amount" valueNumeric="29"/>
+            <column name="sort_order" valueNumeric="23"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Webhook e automazioni"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Integrazioni"/>
+            <column name="description" value="Trigger automatici tra servizi per sincronizzare dati e automatizzare processi"/>
+            <column name="client_label" value="Automazioni tra servizi"/>
+            <column name="client_description" value="Automatizza operazioni ripetitive collegando il sito agli strumenti che usi"/>
+            <column name="setup_amount" valueNumeric="300"/>
+            <column name="monthly_amount" valueNumeric="19"/>
+            <column name="sort_order" valueNumeric="24"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- Manutenzione e supporto -->
+        <insert tableName="configurator_services">
+            <column name="name" value="Backup avanzato"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Manutenzione e supporto"/>
+            <column name="description" value="Backup giornaliero con retention 90gg e ripristino prioritario garantito entro 4h"/>
+            <column name="client_label" value="Backup avanzato con ripristino prioritario"/>
+            <column name="client_description" value="Protezione estesa con 90 giorni di storico e ripristino garantito entro 4 ore"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="19"/>
+            <column name="sort_order" valueNumeric="25"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Monitoraggio uptime"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Manutenzione e supporto"/>
+            <column name="description" value="Monitoraggio H24 con alert immediato e report mensile di disponibilita"/>
+            <column name="client_label" value="Monitoraggio continuo del sito"/>
+            <column name="client_description" value="Vieni avvisato immediatamente in caso di problemi con report mensile incluso"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="9"/>
+            <column name="sort_order" valueNumeric="26"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Aggiornamenti CMS"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Manutenzione e supporto"/>
+            <column name="description" value="Aggiornamenti periodici delle dipendenze e test di regressione"/>
+            <column name="client_label" value="Aggiornamenti e sicurezza"/>
+            <column name="client_description" value="Dipendenze sempre aggiornate e test periodici per garantire stabilita e sicurezza"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="19"/>
+            <column name="sort_order" valueNumeric="27"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Supporto prioritario"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Manutenzione e supporto"/>
+            <column name="description" value="Assistenza telefonica in orario lavorativo con risposta garantita entro 2h"/>
+            <column name="client_label" value="Supporto telefonico prioritario"/>
+            <column name="client_description" value="Ti rispondo al telefono in orario lavorativo con tempo di risposta garantito"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="29"/>
+            <column name="sort_order" valueNumeric="28"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Formazione e manuale"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Manutenzione e supporto"/>
+            <column name="description" value="2h di formazione in presenza o videochiamata + manuale d uso personalizzato"/>
+            <column name="client_label" value="Formazione e manuale d uso"/>
+            <column name="client_description" value="Impara a usare il pannello con una sessione dedicata e tieni il manuale per dopo"/>
+            <column name="setup_amount" valueNumeric="90"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="29"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Migrazione sito"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Manutenzione e supporto"/>
+            <column name="description" value="Migrazione contenuti da sito esistente con redirect SEO e verifica post-migrazione"/>
+            <column name="client_label" value="Ho gia un sito da aggiornare"/>
+            <column name="client_description" value="Porto tutti i contenuti dal tuo vecchio sito e gestisco il passaggio senza interruzioni"/>
+            <column name="setup_amount" valueNumeric="380"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="30"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="configurator_services">
+            <column name="name" value="Email aziendale"/>
+            <column name="category" value="Add-on"/>
+            <column name="service_type" value="Manutenzione e supporto"/>
+            <column name="description" value="Configurazione casella email con dominio personalizzato"/>
+            <column name="client_label" value="Email con il tuo dominio"/>
+            <column name="client_description" value="Configuro la tua casella email professionale - il canone del servizio resta a tuo carico"/>
+            <column name="setup_amount" valueNumeric="70"/>
+            <column name="monthly_amount" valueNumeric="0"/>
+            <column name="sort_order" valueNumeric="31"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- ═══════════════════════════════════════════════════════
+             CONFIGURATOR PACKAGES (7)
+        ═══════════════════════════════════════════════════════ -->
+
+        <insert tableName="configurator_packages">
+            <column name="name" value="Negozio / attività commerciale"/>
+            <column name="description" value="Sito vetrina per il tuo negozio con schede prodotto e informazioni"/>
+            <column name="setup_amount" valueNumeric="200"/>
+            <column name="monthly_amount" valueNumeric="69"/>
+            <column name="sort_order" valueNumeric="1"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="offer_label" value="OFFERTA LANCIO"/>
+            <column name="offer_discount_setup" valueNumeric="200"/>
+            <column name="offer_discount_monthly" valueNumeric="0"/>
+            <column name="offer_enabled" valueNumeric="1"/>
+            <column name="activity_type" value="retail"/>
+        </insert>
+
+        <insert tableName="configurator_packages">
+            <column name="name" value="Ristorante / bar / pizzeria"/>
+            <column name="description" value="Sito con menu digitale orari e sistema di prenotazione tavoli"/>
+            <column name="setup_amount" valueNumeric="300"/>
+            <column name="monthly_amount" valueNumeric="69"/>
+            <column name="sort_order" valueNumeric="2"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="offer_label" value="OFFERTA LANCIO"/>
+            <column name="offer_discount_setup" valueNumeric="300"/>
+            <column name="offer_discount_monthly" valueNumeric="0"/>
+            <column name="offer_enabled" valueNumeric="1"/>
+            <column name="activity_type" value="food"/>
+        </insert>
+
+        <insert tableName="configurator_packages">
+            <column name="name" value="Studio professionale"/>
+            <column name="description" value="Sito per professionisti con area clienti riservata e gestione documenti"/>
+            <column name="setup_amount" valueNumeric="300"/>
+            <column name="monthly_amount" valueNumeric="99"/>
+            <column name="sort_order" valueNumeric="3"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="offer_label" value="OFFERTA LANCIO"/>
+            <column name="offer_discount_setup" valueNumeric="300"/>
+            <column name="offer_discount_monthly" valueNumeric="0"/>
+            <column name="offer_enabled" valueNumeric="1"/>
+            <column name="activity_type" value="professional"/>
+        </insert>
+
+        <insert tableName="configurator_packages">
+            <column name="name" value="B&amp;B / affittacamere / agriturismo"/>
+            <column name="description" value="Sito per strutture ricettive con galleria disponibilita e prenotazioni online"/>
+            <column name="setup_amount" valueNumeric="500"/>
+            <column name="monthly_amount" valueNumeric="89"/>
+            <column name="sort_order" valueNumeric="4"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="offer_label" value="OFFERTA LANCIO"/>
+            <column name="offer_discount_setup" valueNumeric="300"/>
+            <column name="offer_discount_monthly" valueNumeric="0"/>
+            <column name="offer_enabled" valueNumeric="1"/>
+            <column name="activity_type" value="hospitality"/>
+        </insert>
+
+        <insert tableName="configurator_packages">
+            <column name="name" value="Palestra / studio sportivo"/>
+            <column name="description" value="Gestionale completo per corsi abbonamenti e prenotazioni lezioni"/>
+            <column name="setup_amount" valueNumeric="400"/>
+            <column name="monthly_amount" valueNumeric="109"/>
+            <column name="sort_order" valueNumeric="5"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="offer_label" value="OFFERTA LANCIO"/>
+            <column name="offer_discount_setup" valueNumeric="400"/>
+            <column name="offer_discount_monthly" valueNumeric="0"/>
+            <column name="offer_enabled" valueNumeric="1"/>
+            <column name="activity_type" value="fitness"/>
+        </insert>
+
+        <insert tableName="configurator_packages">
+            <column name="name" value="Voglio vendere online"/>
+            <column name="description" value="E-commerce completo con catalogo carrello e pagamenti Stripe"/>
+            <column name="setup_amount" valueNumeric="600"/>
+            <column name="monthly_amount" valueNumeric="139"/>
+            <column name="sort_order" valueNumeric="6"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="offer_label" value="OFFERTA LANCIO"/>
+            <column name="offer_discount_setup" valueNumeric="600"/>
+            <column name="offer_discount_monthly" valueNumeric="0"/>
+            <column name="offer_enabled" valueNumeric="1"/>
+            <column name="activity_type" value="ecommerce"/>
+        </insert>
+
+        <insert tableName="configurator_packages">
+            <column name="name" value="Altro"/>
+            <column name="description" value="Non hai trovato il tuo settore? Partiamo da una base personalizzabile"/>
+            <column name="setup_amount" valueNumeric="0"/>
+            <column name="monthly_amount" valueNumeric="69"/>
+            <column name="sort_order" valueNumeric="7"/>
+            <column name="enabled" valueNumeric="1"/>
+            <column name="offer_enabled" valueNumeric="0"/>
+            <column name="activity_type" value="other"/>
+        </insert>
+
+        <!-- ═══════════════════════════════════════════════════════
+             CONFIGURATOR PACKAGE SERVICES
+             Usa subquery per evitare ID fissi
+        ═══════════════════════════════════════════════════════ -->
+
+        <!-- Tutti i pacchetti includono i 5 servizi Base -->
+        <sql>
+            INSERT INTO configurator_package_services (package_id, service_id, included)
+            SELECT p.id, s.id, 1
+            FROM configurator_packages p
+            CROSS JOIN configurator_services s
+            WHERE s.category = 'Base';
+        </sql>
+
+        <!-- Negozio: SEO base, Google Analytics, Pagine aggiuntive -->
+        <sql>
+            INSERT INTO configurator_package_services (package_id, service_id, included)
+            SELECT p.id, s.id, 1
+            FROM configurator_packages p, configurator_services s
+            WHERE p.activity_type = 'retail'
+            AND s.name IN ('SEO base', 'Google Analytics', 'Pagine aggiuntive');
+        </sql>
+
+        <!-- Ristorante: SEO base, Google Analytics, Prenotazioni online -->
+        <sql>
+            INSERT INTO configurator_package_services (package_id, service_id, included)
+            SELECT p.id, s.id, 1
+            FROM configurator_packages p, configurator_services s
+            WHERE p.activity_type = 'food'
+            AND s.name IN ('SEO base', 'Google Analytics', 'Prenotazioni online');
+        </sql>
+
+        <!-- Studio professionale: Area clienti, SEO base, Google Analytics -->
+        <sql>
+            INSERT INTO configurator_package_services (package_id, service_id, included)
+            SELECT p.id, s.id, 1
+            FROM configurator_packages p, configurator_services s
+            WHERE p.activity_type = 'professional'
+            AND s.name IN ('Area clienti', 'SEO base', 'Google Analytics');
+        </sql>
+
+        <!-- B&B: Prenotazioni online, Multilingua EN, SEO base, Google Analytics -->
+        <sql>
+            INSERT INTO configurator_package_services (package_id, service_id, included)
+            SELECT p.id, s.id, 1
+            FROM configurator_packages p, configurator_services s
+            WHERE p.activity_type = 'hospitality'
+            AND s.name IN ('Prenotazioni online', 'Multilingua EN', 'SEO base', 'Google Analytics');
+        </sql>
+
+        <!-- Palestra: Gestionale attività, CRM clienti, Dashboard KPI, SEO base -->
+        <sql>
+            INSERT INTO configurator_package_services (package_id, service_id, included)
+            SELECT p.id, s.id, 1
+            FROM configurator_packages p, configurator_services s
+            WHERE p.activity_type = 'fitness'
+            AND s.name IN ('Gestionale attività', 'CRM clienti', 'Dashboard KPI', 'SEO base');
+        </sql>
+
+        <!-- E-commerce: Catalogo prodotti, Carrello e checkout, Gestione ordini, Fatturazione, SEO base, Google Analytics -->
+        <sql>
+            INSERT INTO configurator_package_services (package_id, service_id, included)
+            SELECT p.id, s.id, 1
+            FROM configurator_packages p, configurator_services s
+            WHERE p.activity_type = 'ecommerce'
+            AND s.name IN ('Catalogo prodotti', 'Carrello e checkout', 'Gestione ordini', 'Fatturazione', 'SEO base', 'Google Analytics');
+        </sql>
+
+        <!-- Altro: solo Base (già inserito sopra con CROSS JOIN) -->
+
+        <rollback>
+            <delete tableName="configurator_package_services"/>
+            <delete tableName="configurator_packages"/>
+            <delete tableName="configurator_services"/>
+            <delete tableName="cms_sections"/>
+            <delete tableName="admin_users"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>

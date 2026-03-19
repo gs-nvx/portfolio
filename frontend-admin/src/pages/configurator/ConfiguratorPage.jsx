@@ -17,7 +17,10 @@ import {
   deleteService,
 } from "../../api/configuratorApi";
 
-const CATEGORIES = [
+const CATEGORIES = ["Base", "Add-on"];
+
+const ACTIVITY_TYPES = [
+  "Base",
   "Sito pubblico",
   "SEO e ottimizzazione",
   "Area riservata",
@@ -457,6 +460,26 @@ function ServiceForm({
           {CATEGORIES.map((c) => (
             <option key={c} value={c}>
               {c}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="flex flex-col gap-1">
+        <label className="text-sm text-gray-400">
+          Tipo attività (raggruppamento nel configuratore)
+        </label>
+        <select
+          value={data.activityType || ""}
+          onChange={(e) =>
+            onChange({ ...data, activityType: e.target.value || null })
+          }
+          className="bg-gray-800 text-white rounded-lg px-4 py-2.5 text-sm
+      border border-gray-700 outline-none focus:ring-2 focus:ring-teal-500"
+        >
+          <option value="">— nessuno —</option>
+          {ACTIVITY_TYPES.map((t) => (
+            <option key={t} value={t}>
+              {t}
             </option>
           ))}
         </select>

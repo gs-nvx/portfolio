@@ -7,7 +7,6 @@ import java.util.List;
 public record ConfiguratorPackageCreateDTO(
         @NotBlank String name,
         String description,
-        String activityType,
         @NotNull int setupAmount,
         @NotNull int monthlyAmount,
         @NotNull int sortOrder,
@@ -16,5 +15,6 @@ public record ConfiguratorPackageCreateDTO(
         Integer offerDiscountSetup,
         Integer offerDiscountMonthly,
         @NotNull boolean offerEnabled,
+        String activityType,
         List<Long> includedServiceIds
 ) {}

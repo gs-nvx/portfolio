@@ -92,20 +92,20 @@ export default function BlogPostPage() {
               {post?.body}
             </div>
           </div>
+          <div className="max-w-2xl mx-auto px-6 pt-8">
+            <Link
+              to="/blog"
+              style={{
+                color: "#0f9e7e",
+                fontFamily: "'DM Mono', monospace",
+                fontSize: "12px",
+                textDecoration: "none",
+              }}
+            >
+              ← Blog
+            </Link>
+          </div>
         </SectionWrapper>
-        <div className="max-w-2xl mx-auto px-6 pt-8">
-          <Link
-            to="/blog"
-            style={{
-              color: "#0f9e7e",
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "12px",
-              textDecoration: "none",
-            }}
-          >
-            ← Blog
-          </Link>
-        </div>
       </div>
     </>
   );

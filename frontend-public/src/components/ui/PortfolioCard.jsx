@@ -53,6 +53,12 @@ export default function PortfolioCard({ caso, showLink = false, onInfoClick }) {
             {isOnline ? "● online" : "◌ work in progress"}
           </span>
         </div>
+        <div
+          className="text-xl font-medium"
+          style={{ color: "#152820", letterSpacing: "-0.02em" }}
+        >
+          {caso.titolo}
+        </div>
 
         {/* Descrizione */}
         <p

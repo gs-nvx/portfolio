@@ -138,9 +138,51 @@ export default function HomePage() {
                 fontSize: "14px",
               }}
             >
-              Vedi il portfolio →
+              Portfolio →
             </Link>
           </div>
+        </div>
+        {/* Scroll indicator */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "2rem",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 3,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "'DM Mono', monospace",
+              fontSize: "9px",
+              color: "#34d5a8",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              opacity: 0.7,
+            }}
+          >
+            scroll
+          </span>
+          <div
+            style={{
+              width: "1px",
+              height: "25px",
+              background: "linear-gradient(to bottom, #34d5a8, transparent)",
+              animation: "scrollLine 1.8s ease-in-out infinite",
+            }}
+          />
+          <style>{`
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      100% { transform: scaleY(1); transform-origin: top; opacity: 0; }
+    }
+  `}</style>
         </div>
       </section>
 

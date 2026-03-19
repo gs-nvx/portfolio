@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-    <changeSet id="20250315-001" author="tuonome">
+    <changeSet id="20250315-001" author="Gioele Stropeni">
         <createTable tableName="admin_users">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -21,9 +21,188 @@
             </column>
         </createTable>
 
+        <createTable tableName="cms_sections">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="section_key" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_json" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort_order" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locale" type="VARCHAR(5)" defaultValue="it">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint
+                tableName="cms_sections"
+                columnNames="section_key, locale"
+                constraintName="uq_cms_section_key_locale"/>
+
+        <createTable tableName="blog_posts">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="body" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(100)"/>
+            <column name="seo_title" type="VARCHAR(255)"/>
+            <column name="seo_description" type="VARCHAR(500)"/>
+            <column name="seo_og_image" type="VARCHAR(500)"/>
+            <column name="status" type="VARCHAR(20)" defaultValue="DRAFT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locale" type="VARCHAR(5)" defaultValue="it">
+                <constraints nullable="false"/>
+            </column>
+            <column name="published_at" type="DATETIME"/>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="configurator_packages">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(500)"/>
+            <column name="setup_amount" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monthly_amount" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sort_order" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="offer_label" type="VARCHAR(100)"/>
+            <column name="offer_discount_setup" type="INT"/>
+            <column name="offer_discount_monthly" type="INT"/>
+            <column name="offer_enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activity_type" type="VARCHAR(100)"/>
+        </createTable>
+
+        <createTable tableName="configurator_services">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_type" type="VARCHAR(100)"/>
+            <column name="description" type="VARCHAR(500)"/>
+            <column name="setup_amount" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monthly_amount" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="requires_package_id" type="BIGINT"/>
+            <column name="requires_service_id" type="BIGINT"/>
+            <column name="sort_order" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visible_for" type="VARCHAR(500)"/>
+            <column name="exclusive_group" type="VARCHAR(100)"/>
+            <column name="client_label" type="VARCHAR(200)"/>
+            <column name="client_description" type="VARCHAR(500)"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="configurator_services"
+                baseColumnNames="requires_package_id"
+                referencedTableName="configurator_packages"
+                referencedColumnNames="id"
+                constraintName="fk_service_requires_package"
+                onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+                baseTableName="configurator_services"
+                baseColumnNames="requires_service_id"
+                referencedTableName="configurator_services"
+                referencedColumnNames="id"
+                constraintName="fk_service_requires_service"
+                onDelete="SET NULL"/>
+
+        <!-- Tabella collegamento pacchetti-servizi inclusi -->
+        <createTable tableName="configurator_package_services">
+            <column name="package_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="included" type="TINYINT(1)" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                tableName="configurator_package_services"
+                columnNames="package_id, service_id"
+                constraintName="pk_package_services"/>
+
+        <addForeignKeyConstraint
+                baseTableName="configurator_package_services"
+                baseColumnNames="package_id"
+                referencedTableName="configurator_packages"
+                referencedColumnNames="id"
+                constraintName="fk_pkg_svc_package"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="configurator_package_services"
+                baseColumnNames="service_id"
+                referencedTableName="configurator_services"
+                referencedColumnNames="id"
+                constraintName="fk_pkg_svc_service"
+                onDelete="CASCADE"/>
+
         <rollback>
+            <dropTable tableName="configurator_package_services"/>
+            <dropTable tableName="configurator_services"/>
+            <dropTable tableName="configurator_packages"/>
+            <dropTable tableName="blog_posts"/>
+            <dropTable tableName="cms_sections"/>
             <dropTable tableName="admin_users"/>
         </rollback>
     </changeSet>
+
+
 
 </databaseChangeLog>

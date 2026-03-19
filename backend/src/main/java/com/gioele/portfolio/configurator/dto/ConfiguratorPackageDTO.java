@@ -6,7 +6,6 @@ public record ConfiguratorPackageDTO(
         Long id,
         String name,
         String description,
-        String activityType,
         int setupAmount,
         int monthlyAmount,
         int sortOrder,
@@ -15,5 +14,6 @@ public record ConfiguratorPackageDTO(
         Integer offerDiscountSetup,
         Integer offerDiscountMonthly,
         boolean offerEnabled,
+        String activityType,
         List<Long> includedServiceIds
 ) {}

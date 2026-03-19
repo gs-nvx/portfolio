@@ -15,6 +15,8 @@ export default function ContactForm() {
   const [form, setForm] = useState({ nome: "", email: "", messaggio: "" });
   const [status, setStatus] = useState(null);
   const { errors, validate, clearError } = useFormValidation(RULES);
+  const [consenso, setConsenso] = useState(false);
+  const [consensoError, setConsensoError] = useState(false);
 
   const set = (field) => (e) => {
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -23,6 +25,10 @@ export default function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!consenso) {
+      setConsensoError(true);
+      return;
+    }
     if (!validate(form)) return;
     setStatus("loading");
     try {
@@ -67,6 +73,46 @@ export default function ContactForm() {
           {t("contatti.invio_errore")}
         </p>
       )}
+      <div className="flex flex-col gap-1">
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={consenso}
+            onChange={(e) => {
+              setConsenso(e.target.checked);
+              setConsensoError(false);
+            }}
+            style={{
+              marginTop: "3px",
+              accentColor: "#0b7a5a",
+              cursor: "pointer",
+            }}
+          />
+          <span style={{ fontSize: "12px", color: "#5a8a7a", lineHeight: 1.6 }}>
+            Ho letto e accetto la{" "}
+            <a
+              href="https://www.iubenda.com/privacy-policy/XXXXXXX"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#0b7a5a", textDecoration: "underline" }}
+            >
+              Privacy Policy
+            </a>{" "}
+            e acconsento al trattamento dei miei dati personali.
+          </span>
+        </label>
+        {consensoError && (
+          <span
+            style={{
+              fontSize: "11px",
+              color: "#7a1a1a",
+              fontFamily: "'DM Mono', monospace",
+            }}
+          >
+            Devi accettare la privacy policy per inviare il messaggio
+          </span>
+        )}
+      </div>
       <button
         type="submit"
         disabled={status === "loading"}

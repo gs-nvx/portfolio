@@ -34,6 +34,8 @@ export default function ConfiguratorSummary({
   );
   const totalSetup = baseSetup + extrasSetup;
   const totalMonthly = baseMonthly + extrasMonthly;
+  const [consenso, setConsenso] = useState(false);
+  const [consensoError, setConsensoError] = useState(false);
 
   const RULES = [
     { field: "nome", required: true },
@@ -47,6 +49,12 @@ export default function ConfiguratorSummary({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!consenso) {
+      setConsensoError(true);
+      return;
+    }
+
     if (!validate(form)) return;
     setStatus("loading");
 
@@ -83,7 +91,12 @@ Canone mensile: €${technicalData.totaleMensile}/mese
   return (
     <div
       className="rounded-xl p-5 sticky top-20"
-      style={{ background: "#ffffff", border: "0.5px solid #dceae5" }}
+      style={{
+        background: "#ffffff",
+        border: "0.5px solid #dceae5",
+        maxHeight: "calc(100vh - 6rem)", // altezza massima = viewport meno navbar
+        overflowY: "auto",
+      }}
     >
       <p
         className="text-xs uppercase tracking-widest mb-4"
@@ -264,6 +277,55 @@ Canone mensile: €${technicalData.totaleMensile}/mese
                   Errore nell'invio. Riprova.
                 </p>
               )}
+              <div className="flex flex-col gap-1">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={consenso}
+                    onChange={(e) => {
+                      setConsenso(e.target.checked);
+                      setConsensoError(false);
+                    }}
+                    style={{
+                      marginTop: "3px",
+                      accentColor: "#0b7a5a",
+                      cursor: "pointer",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      color: "#5a8a7a",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    Ho letto e accetto la{" "}
+                    <a
+                      href="https://www.iubenda.com/privacy-policy/XXXXXXX"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: "#0b7a5a",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Privacy Policy
+                    </a>{" "}
+                    e acconsento al trattamento dei miei dati personali.
+                  </span>
+                </label>
+                {consensoError && (
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      color: "#7a1a1a",
+                      fontFamily: "'DM Mono', monospace",
+                    }}
+                  >
+                    Devi accettare la privacy policy per inviare il messaggio
+                  </span>
+                )}
+              </div>
               <div className="flex gap-2">
                 <button
                   type="button"
