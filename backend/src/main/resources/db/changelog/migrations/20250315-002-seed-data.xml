@@ -28,8 +28,7 @@
             <column name="sort_order" valueNumeric="1"/>
             <column name="locale" value="it"/>
             <column name="updated_at" valueDate="2025-03-15T00:00:00"/>
-            <column name="content_json" value='{"titolo":"Sviluppo web per PMI","sottotitolo":"Siti e gestionali su misura per la tua azienda","testo_cta":"Scopri i servizi","link_cta":"/servizi","immagine":""}'/>
-        </insert>
+            <column name="content_json" value='{"titolo_parte1":"Siti e gestionali","titolo_em":"su misura","titolo_parte2":"per la tua PMI","sottotitolo":"Applicazioni web professionali per piccole e medie imprese.","testo_cta":"Scopri i servizi","link_cta":"/servizi","immagine":""}'/>        </insert>
 
         <insert tableName="cms_sections">
             <column name="section_key" value="servizi"/>

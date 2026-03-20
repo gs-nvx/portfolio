@@ -10,6 +10,7 @@ import {
   getConfiguratorServices,
 } from "../api/configuratorApi";
 import { ACTIVITY_ICONS } from "../components/ui/configurator/activityIcons";
+import CardCarousel from "../components/ui/CardCarousel";
 
 export default function ServiziPage() {
   const { i18n } = useTranslation();
@@ -25,6 +26,7 @@ export default function ServiziPage() {
     );
   }, []);
   const servizi = getContent("servizi");
+  const [hoveredId, setHoveredId] = useState(null);
 
   if (loading)
     return (
@@ -123,8 +125,11 @@ export default function ServiziPage() {
               {servizi?.sottotitolo_sezione}
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {packages.map((p) => {
+          <CardCarousel
+            items={packages}
+            itemWidth={280}
+            gap={20}
+            renderCard={(p) => {
               const finalSetup =
                 p.offerEnabled && p.offerDiscountSetup
                   ? p.setupAmount - p.offerDiscountSetup
@@ -140,21 +145,35 @@ export default function ServiziPage() {
 
               return (
                 <div
-                  key={p.id}
-                  className="rounded-xl p-5 flex flex-col gap-3 relative"
+                  className="rounded-xl p-5 flex flex-col gap-3 relative h-full"
                   style={{
                     background: "#ffffff",
-                    border: p.offerEnabled
-                      ? "1.5px solid #0f9e7e"
-                      : "0.5px solid #c2d0c5",
+                    border:
+                      hoveredId === p.id
+                        ? "1.5px solid #0f9e7e" // hover — teal brillante
+                        : p.offerEnabled
+                          ? "1.5px solid #34d5a8" // offerta attiva — teal scuro
+                          : "0.5px solid #c2d0c5",
+                    transition: "border 0.2s ease",
                   }}
+                  onMouseEnter={() => setHoveredId(p.id)}
+                  onMouseLeave={() => setHoveredId(null)}
                 >
                   {p.offerEnabled && p.offerLabel && (
-                    <div className="absolute -top-3 left-4">
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "12px",
+                        right: "16px",
+                      }}
+                    >
                       <span
-                        className="text-[10px] px-3 py-1 rounded-full font-medium"
                         style={{
-                          background: "#0f9e7e",
+                          fontSize: "10px",
+                          padding: "3px 10px",
+                          borderRadius: "99px",
+                          fontWeight: 500,
+                          background: "#34d5a8",
                           color: "#fff",
                           fontFamily: "'DM Mono', monospace",
                         }}
@@ -163,17 +182,17 @@ export default function ServiziPage() {
                       </span>
                     </div>
                   )}
-                  <div className="text-2xl">{icon}</div>
+                  <div style={{ fontSize: "22px" }}>{icon}</div>
                   <div>
                     <h3
                       className="font-medium text-sm"
-                      style={{ color: "#1c2e24" }}
+                      style={{ color: "#152820" }}
                     >
                       {p.name}
                     </h3>
                     <p
                       className="text-xs mt-1 font-light"
-                      style={{ color: "#3d5c47" }}
+                      style={{ color: "#5a8a7a" }}
                     >
                       {p.description}
                     </p>
@@ -182,7 +201,7 @@ export default function ServiziPage() {
                     {p.offerEnabled && p.offerDiscountMonthly > 0 && (
                       <p
                         className="text-xs line-through"
-                        style={{ color: "#0f9e7e" }}
+                        style={{ color: "#8ab8a8" }}
                       >
                         €{p.monthlyAmount}/mese
                       </p>
@@ -194,7 +213,7 @@ export default function ServiziPage() {
                       €{finalMonthly}
                       <span
                         className="text-xs font-light ml-1"
-                        style={{ color: "#0f9e7e" }}
+                        style={{ color: "#5a8a7a" }}
                       >
                         /mese
                       </span>
@@ -203,7 +222,7 @@ export default function ServiziPage() {
                       <div className="flex items-center gap-2 mt-0.5">
                         <p
                           className="text-xs line-through"
-                          style={{ color: "#0f9e7e" }}
+                          style={{ color: "#8ab8a8" }}
                         >
                           Setup €{p.setupAmount}
                         </p>
@@ -217,7 +236,7 @@ export default function ServiziPage() {
                     ) : (
                       <p
                         className="text-xs mt-0.5"
-                        style={{ color: "#0f9e7e" }}
+                        style={{ color: "#8ab8a8" }}
                       >
                         {finalSetup === 0
                           ? "Nessun costo di setup"
@@ -234,9 +253,9 @@ export default function ServiziPage() {
                         <li
                           key={s.id}
                           className="text-xs flex gap-2"
-                          style={{ color: "#5e7d68" }}
+                          style={{ color: "#5a8a7a" }}
                         >
-                          <span style={{ color: "#5e7d68" }}>↗</span>
+                          <span style={{ color: "#0f9e7e" }}>↗</span>
                           {s.clientLabel || s.name}
                         </li>
                       ))}
@@ -244,8 +263,8 @@ export default function ServiziPage() {
                   )}
                 </div>
               );
-            })}
-          </div>
+            }}
+          />
         </SectionWrapper>
       </section>
       <ConfiguratorSection />

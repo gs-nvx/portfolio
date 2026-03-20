@@ -5,7 +5,7 @@ export default function ActivitySelector({ packages, selected, onSelect }) {
     <div>
       <p
         className="text-xs uppercase tracking-widest mb-3"
-        style={{ color: "#8ab8a8", fontFamily: "'DM Mono', monospace" }}
+        style={{ color: "#0f9e7e", fontFamily: "'DM Mono', monospace" }}
       >
         1. Che tipo di attività hai?
       </p>

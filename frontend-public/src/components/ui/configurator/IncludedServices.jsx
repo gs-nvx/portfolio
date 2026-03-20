@@ -7,7 +7,7 @@ export default function IncludedServices({ services, onNext }) {
       <div className="flex items-center justify-between mb-4">
         <p
           className="text-xs uppercase tracking-widest"
-          style={{ color: "#8ab8a8", fontFamily: "'DM Mono', monospace" }}
+          style={{ color: "#0f9e7e", fontFamily: "'DM Mono', monospace" }}
         >
           2. Incluso nel pacchetto
         </p>

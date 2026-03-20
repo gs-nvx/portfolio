@@ -7,6 +7,7 @@ import SectionEyebrow from "../components/ui/SectionEyebrow";
 import PortfolioCard from "../components/ui/PortfolioCard";
 import ContactForm from "../components/ui/ContactForm";
 import { useCmsSections } from "../hooks/useCms";
+import CardCarousel from "../components/ui/CardCarousel";
 
 export default function HomePage() {
   const { t, i18n } = useTranslation();
@@ -283,11 +284,14 @@ export default function HomePage() {
                 {portfolio.titolo_sezione}
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {portfolio.casi_studio.slice(0, 3).map((c, i) => (
+            <CardCarousel
+              items={portfolio.casi_studio.slice(0, 6)}
+              itemWidth={320}
+              gap={20}
+              renderCard={(c, i) => (
                 <PortfolioCard key={i} caso={c} showLink={false} />
-              ))}
-            </div>
+              )}
+            />
             <div className="text-center mt-8">
               <Link
                 to="/portfolio"
@@ -320,11 +324,14 @@ export default function HomePage() {
                 {testimonianze.titolo_sezione}
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {testimonianze.testimonianze.map((t, i) => (
+            <CardCarousel
+              items={testimonianze.testimonianze}
+              itemWidth={360}
+              gap={20}
+              renderCard={(t, i) => (
                 <div
                   key={i}
-                  className="rounded-xl p-6"
+                  className="rounded-xl p-6 h-full"
                   style={{
                     background: "#ffffff",
                     border: "0.5px solid #d0dcd2",
@@ -355,8 +362,8 @@ export default function HomePage() {
                     {t.azienda}
                   </p>
                 </div>
-              ))}
-            </div>
+              )}
+            />
           </SectionWrapper>
         </section>
       )}

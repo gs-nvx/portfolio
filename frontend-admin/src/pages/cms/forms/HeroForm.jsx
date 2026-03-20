@@ -8,16 +8,28 @@ export default function HeroForm({ data, onChange }) {
   return (
     <div className="flex flex-col gap-4">
       <Input
-        label="Titolo"
-        value={data.titolo || ""}
-        onChange={set("titolo")}
-        placeholder="Sviluppo web per PMI"
+        label="Titolo 1"
+        value={data.titolo_parte1 || ""}
+        onChange={set("titolo_parte1")}
+        placeholder="Siti e gestionali"
+      />
+      <Input
+        label="Titolo em"
+        value={data.titolo_em || ""}
+        onChange={set("titolo_em")}
+        placeholder="su misura"
+      />
+      <Input
+        label="Titolo 2"
+        value={data.titolo_parte2 || ""}
+        onChange={set("titolo_parte2")}
+        placeholder="per la tua PMI"
       />
       <Input
         label="Sottotitolo"
         value={data.sottotitolo || ""}
         onChange={set("sottotitolo")}
-        placeholder="Siti e gestionali su misura per la tua azienda"
+        placeholder="Applicazioni web professionali per piccole e medie imprese."
       />
       <Input
         label="Testo CTA"

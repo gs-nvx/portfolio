@@ -7,7 +7,7 @@ export default function ValidatedInput({
   multiline = false,
   rows = 3,
 }) {
-  const borderColor = error ? "#7a1a1a" : "#dceae5";
+  const borderColor = error ? "#db0f0f" : "#dceae5";
   const focusShadow = error ? "0 0 0 2px rgba(122,26,26,0.15)" : "none";
 
   const baseStyle = {
@@ -29,7 +29,7 @@ export default function ValidatedInput({
         <span
           style={{
             fontSize: "11px",
-            color: "#7a1a1a",
+            color: "#db0f0f",
             fontFamily: "'DM Mono', monospace",
           }}
         >

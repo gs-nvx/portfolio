@@ -13,7 +13,7 @@ export default function AddOnSelector({ addOns, selected, onToggle }) {
     <div className="flex flex-col gap-6">
       <p
         className="text-xs uppercase tracking-widest"
-        style={{ color: "#8ab8a8", fontFamily: "'DM Mono', monospace" }}
+        style={{ color: "#0f9e7e", fontFamily: "'DM Mono', monospace" }}
       >
         3. Aggiungi servizi extra
       </p>
@@ -22,7 +22,7 @@ export default function AddOnSelector({ addOns, selected, onToggle }) {
           <p
             className="text-xs uppercase tracking-widest mb-3"
             style={{
-              color: "#0b7a5a",
+              color: "#8ab8a8",
               fontFamily: "'DM Mono', monospace",
               borderBottom: "0.5px solid #dceae5",
               paddingBottom: "6px",

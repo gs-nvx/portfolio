@@ -25,7 +25,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              color: "#6e9aaa",
+              color: "#0f9e7e",
               fontSize: "11px",
               fontFamily: "'DM Mono', monospace",
             }}
@@ -37,7 +37,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              color: "#6e9aaa",
+              color: "#0f9e7e",
               fontSize: "11px",
               fontFamily: "'DM Mono', monospace",
             }}

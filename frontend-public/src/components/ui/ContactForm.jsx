@@ -69,7 +69,7 @@ export default function ContactForm() {
         </p>
       )}
       {status === "error" && (
-        <p className="text-sm" style={{ color: "#7a1a1a" }}>
+        <p className="text-sm" style={{ color: "#db0f0f" }}>
           {t("contatti.invio_errore")}
         </p>
       )}
@@ -105,7 +105,7 @@ export default function ContactForm() {
           <span
             style={{
               fontSize: "11px",
-              color: "#7a1a1a",
+              color: "#db0f0f",
               fontFamily: "'DM Mono', monospace",
             }}
           >
