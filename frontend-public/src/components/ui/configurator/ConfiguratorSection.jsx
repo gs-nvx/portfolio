@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   getConfiguratorPackages,
   getConfiguratorServices,
@@ -16,6 +16,8 @@ export default function ConfiguratorSection() {
   const [selectedAddOns, setSelectedAddOns] = useState(new Set());
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(true);
+  const step2Ref = useRef(null);
+  const step3Ref = useRef(null);
 
   useEffect(() => {
     Promise.all([getConfiguratorPackages(), getConfiguratorServices()])
@@ -68,6 +70,9 @@ export default function ConfiguratorSection() {
     setSelectedPackage(pkg);
     setSelectedAddOns(new Set());
     setStep(2);
+    setTimeout(() => {
+      step2Ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
   };
 
   const selectedAddOnsList = addOns.filter((s) => selectedAddOns.has(s.id));
@@ -140,19 +145,31 @@ export default function ConfiguratorSection() {
 
             {/* Step 2 */}
             {step >= 2 && selectedPackage && (
-              <IncludedServices
-                services={includedServices}
-                onNext={() => setStep(3)}
-              />
+              <div ref={step2Ref}>
+                <IncludedServices
+                  services={includedServices}
+                  onNext={() => {
+                    setStep(3);
+                    setTimeout(() => {
+                      step3Ref.current?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }, 50);
+                  }}
+                />
+              </div>
             )}
 
             {/* Step 3 */}
             {step >= 3 && (
-              <AddOnSelector
-                addOns={visibleAddOns}
-                selected={selectedAddOns}
-                onToggle={toggleAddOn}
-              />
+              <div ref={step3Ref}>
+                <AddOnSelector
+                  addOns={visibleAddOns}
+                  selected={selectedAddOns}
+                  onToggle={toggleAddOn}
+                />
+              </div>
             )}
           </div>
 
