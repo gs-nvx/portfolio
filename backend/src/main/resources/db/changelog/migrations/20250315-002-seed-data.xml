@@ -14,7 +14,7 @@
         <insert tableName="admin_users">
             <column name="username" value="admin"/>
             <!-- BCrypt hash di "changeme" — cambiare alla prima produzione -->
-            <column name="password_hash" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="password_hash" value="$2a$10$WSItNRwAiQqNgL18JUdynONZe6W.qbqaLicqhCR00ivhbZAmD68Ri"/>
             <column name="created_at" valueDate="2025-03-15T00:00:00"/>
         </insert>
 
