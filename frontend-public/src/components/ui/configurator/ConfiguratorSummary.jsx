@@ -1,7 +1,14 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { sendContactForm } from "../../../api/cmsApi";
 import ValidatedInput from "../ValidatedInput";
 import { useFormValidation } from "../../../hooks/useFormValidation";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+
+const RULES = [
+  { field: "nome", required: true },
+  { field: "azienda", required: true },
+  { field: "email", required: true, type: "email" },
+];
 
 export default function ConfiguratorSummary({
   selectedPackage,
@@ -34,14 +41,14 @@ export default function ConfiguratorSummary({
   );
   const totalSetup = baseSetup + extrasSetup;
   const totalMonthly = baseMonthly + extrasMonthly;
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const [captchaError, setCaptchaError] = useState(false);
   const [consenso, setConsenso] = useState(false);
   const [consensoError, setConsensoError] = useState(false);
+  const captchaRef = useRef(null);
+  const HCAPTCHA_SITEKEY = import.meta.env.VITE_HCAPTCHA_SITE_KEY;
+  const [website, setWebsite] = useState("");
 
-  const RULES = [
-    { field: "nome", required: true },
-    { field: "azienda", required: true },
-    { field: "email", required: true, type: "email" },
-  ];
   const { errors, validate, clearError } = useFormValidation(RULES);
 
   const set = (f) => (e) =>
@@ -50,12 +57,18 @@ export default function ConfiguratorSummary({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let hasError = false;
     if (!consenso) {
       setConsensoError(true);
-      return;
+      hasError = true;
     }
+    if (!captchaToken) {
+      setCaptchaError(true);
+      hasError = true;
+    }
+    if (!validate(form)) hasError = true;
+    if (hasError) return;
 
-    if (!validate(form)) return;
     setStatus("loading");
 
     const technicalData = {
@@ -80,11 +93,25 @@ Pacchetto: ${technicalData.pacchetto}
 Add-on: ${technicalData.addOn.join(", ") || "nessuno"}
 Setup totale: €${technicalData.totaleSetup}
 Canone mensile: €${technicalData.totaleMensile}/mese
-        `.trim(),
+      `.trim(),
+        website,
+        captchaToken,
       });
       setStatus("ok");
+      setConsenso(false);
+      setCaptchaToken(null);
+      captchaRef.current?.resetCaptcha();
+      setForm({
+        nome: "",
+        azienda: "",
+        email: "",
+        telefono: "",
+        messaggio: "",
+      });
     } catch {
       setStatus("error");
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
     }
   };
 
@@ -240,6 +267,22 @@ Canone mensile: €${technicalData.totaleMensile}/mese
               noValidate
               className="flex flex-col gap-3"
             >
+              {/* Honeypot — non toccare */}
+              <input
+                type="text"
+                name="website"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                style={{
+                  position: "absolute",
+                  left: "-9999px",
+                  opacity: 0,
+                  height: 0,
+                  width: 0,
+                }}
+                tabIndex="-1"
+                autoComplete="off"
+              />
               {[
                 { f: "nome", p: "Nome *", t: "text" },
                 { f: "azienda", p: "Nome attività *", t: "text" },
@@ -267,18 +310,39 @@ Canone mensile: €${technicalData.totaleMensile}/mese
                   setForm((prev) => ({ ...prev, messaggio: e.target.value }))
                 }
               />
-              {status === "ok" && (
-                <p className="text-xs" style={{ color: "#0b7a5a" }}>
-                  Messaggio inviato! Ti risponderò presto.
-                </p>
-              )}
-              {status === "error" && (
-                <p className="text-xs" style={{ color: "#e24b4a" }}>
-                  Errore nell'invio. Riprova.
-                </p>
-              )}
+
+              {/* hCaptcha */}
               <div className="flex flex-col gap-1">
-                <label className="flex items-start gap-3 cursor-pointer">
+                <HCaptcha
+                  sitekey={HCAPTCHA_SITEKEY}
+                  onVerify={(token) => {
+                    setCaptchaToken(token);
+                    setCaptchaError(false);
+                  }}
+                  onExpire={() => setCaptchaToken(null)}
+                  ref={captchaRef}
+                  theme="light"
+                  size="compact"
+                />
+                {captchaError && (
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      color: "#7a1a1a",
+                      fontFamily: "'DM Mono', monospace",
+                    }}
+                  >
+                    Completa la verifica anti-spam
+                  </span>
+                )}
+              </div>
+
+              {/* Consenso privacy */}
+              <div className="flex flex-col gap-1">
+                <label
+                  className="flex items-start gap-2"
+                  style={{ cursor: "pointer" }}
+                >
                   <input
                     type="checkbox"
                     checked={consenso}
@@ -294,24 +358,21 @@ Canone mensile: €${technicalData.totaleMensile}/mese
                   />
                   <span
                     style={{
-                      fontSize: "12px",
+                      fontSize: "11px",
                       color: "#5a8a7a",
                       lineHeight: 1.6,
                     }}
                   >
                     Ho letto e accetto la{" "}
                     <a
-                      href="https://www.iubenda.com/privacy-policy/XXXXXXX"
+                      href="/privacy-policy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{
-                        color: "#0b7a5a",
-                        textDecoration: "underline",
-                      }}
+                      style={{ color: "#0b7a5a", textDecoration: "underline" }}
                     >
                       Privacy Policy
                     </a>{" "}
-                    e acconsento al trattamento dei miei dati personali.
+                    e acconsento al trattamento dei miei dati.
                   </span>
                 </label>
                 {consensoError && (
@@ -322,10 +383,20 @@ Canone mensile: €${technicalData.totaleMensile}/mese
                       fontFamily: "'DM Mono', monospace",
                     }}
                   >
-                    Devi accettare la privacy policy per inviare il messaggio
+                    Devi accettare la privacy policy per inviare
                   </span>
                 )}
               </div>
+              {status === "ok" && (
+                <p className="text-xs" style={{ color: "#0b7a5a" }}>
+                  Messaggio inviato! Ti risponderò presto.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-xs" style={{ color: "#e24b4a" }}>
+                  Errore nell'invio. Riprova.
+                </p>
+              )}
               <div className="flex gap-2">
                 <button
                   type="button"

@@ -1,0 +1,62 @@
+services:
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./frontend-public/dist:/usr/share/nginx/public:ro
+      - ./frontend-admin/dist:/usr/share/nginx/admin:ro
+      - uploads_data:/usr/share/nginx/uploads:ro
+      - certbot_www:/var/www/certbot:ro
+      - certbot_certs:/etc/letsencrypt:ro
+    depends_on:
+      - spring-app
+    restart: unless-stopped
+
+  spring-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file: .env.prod
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    volumes:
+      - uploads_data:/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    env_file: .env.prod
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_certs:/etc/letsencrypt
+    entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew --quiet; sleep 12h; done"
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+  uploads_data:
+  certbot_www:
+  certbot_certs:

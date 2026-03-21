@@ -1,5 +1,6 @@
 # Environment
 .env
+.env.prod
 
 # Backend
 backend/target/
@@ -13,6 +14,8 @@ backend/.idea/
 # Frontend
 frontend-public/node_modules/
 frontend-public/dist/
+frontend-public/.env.production
+frontend-admin/.env.production
 frontend-admin/node_modules/
 frontend-admin/dist/
 

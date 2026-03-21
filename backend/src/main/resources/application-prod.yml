@@ -21,8 +21,10 @@ logging:
 
 app:
   mail:
-    from: noreply@gstcodelab.it
-    to: tua@email.it
+    from: ${MAIL_FROM}
+    to: ${MAIL_TO}
   uploads:
-    path: ${UPLOADS_PATH:/uploads}
-    base-url: https://tuodominio.it/uploads
+    base-url: https://gstcodelab.com/uploads
+
+hcaptcha:
+  secret: ${HCAPTCHA_SECRET}

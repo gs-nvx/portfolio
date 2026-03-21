@@ -21,7 +21,7 @@ export default function Footer() {
         />
         <div className="flex items-center gap-4">
           <a
-            href="https://www.iubenda.com/privacy-policy/XXXXXXX"
+            href="/privacy-policy"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -31,18 +31,6 @@ export default function Footer() {
             }}
           >
             Privacy Policy
-          </a>
-          <a
-            href="https://www.iubenda.com/privacy-policy/XXXXXXX/cookie-policy"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "#0f9e7e",
-              fontSize: "11px",
-              fontFamily: "'DM Mono', monospace",
-            }}
-          >
-            Cookie Policy
           </a>
           <span
             style={{

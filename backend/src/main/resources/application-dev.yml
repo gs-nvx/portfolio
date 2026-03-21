@@ -29,3 +29,6 @@ app:
   uploads:
     path: ${UPLOADS_PATH:C:/uploads}
     base-url: http://localhost:8080/uploads
+
+hcaptcha:
+  secret: "ffe20a88-8500-47f8-bfdc-d8f2e3c66696"  # secret di test hCaptcha

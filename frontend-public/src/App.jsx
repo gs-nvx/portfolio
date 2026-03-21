@@ -12,6 +12,8 @@ import BlogPage from "./pages/blog/BlogPage";
 import BlogPostPage from "./pages/blog/BlogPostPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import PageTransition from "./components/layout/PageTransition";
+import CookieBanner from "./components/ui/CookieBanner";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 
 export default function App() {
   return (
@@ -83,7 +85,16 @@ export default function App() {
               </PageTransition>
             }
           />
+          <Route
+            path="/privacy-policy"
+            element={
+              <PageTransition>
+                <PrivacyPolicyPage />
+              </PageTransition>
+            }
+          />
         </Routes>
+        <CookieBanner privacyPolicyPath="/privacy-policy" />
         <Footer />
       </BrowserRouter>
     </HelmetProvider>

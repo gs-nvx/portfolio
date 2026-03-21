@@ -15,13 +15,13 @@ export default function PortfolioCard({ caso, showLink = false, onInfoClick }) {
         />
       ) : (
         <div
-          className="w-full h-44 flex items-center justify-center"
+          className="w-full h-30 flex items-center justify-center"
           style={{ background: "linear-gradient(135deg, #e8f5f0, #c8ead8)" }}
         >
           <span
             style={{
               fontFamily: "'DM Mono', monospace",
-              fontSize: "10px",
+              fontSize: "12px",
               color: "#5e7d68",
               opacity: 0.5,
             }}
